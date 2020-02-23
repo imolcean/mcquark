@@ -20,6 +20,6 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler({PostUpdateException.class})
     public final ResponseEntity<Object> handlePostUpdateException(Exception ex, WebRequest request)
     {
-        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(403), request);
     }
 }

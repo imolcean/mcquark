@@ -9,7 +9,7 @@ public class PostUpdateException extends RuntimeException
     @AllArgsConstructor
     public enum Reason
     {
-        NO_RIGHTS("You have no rights to perform an update of this post.");
+        NO_RIGHTS("You have no rights to perform the requested action.");
 
         String value;
     }

@@ -21,7 +21,7 @@ public class User
     @Column(unique = true)
     private String nick;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Post> posts;
 
     protected User() {}

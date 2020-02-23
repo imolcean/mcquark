@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tk.nenua4e.mc.server.controller.request.PostSaveRequest;
 import tk.nenua4e.mc.server.dto.PostDto;
 import tk.nenua4e.mc.server.dto.mapper.PostMapper;
@@ -15,6 +16,7 @@ import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.PostRepository;
 import tk.nenua4e.mc.server.repository.UserRepository;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +55,8 @@ public class NewsController
                 .orElseThrow(() -> new PostNotFoundException(id));
     }
 
-    @PostMapping("/post/create")
-    public PostDto createPost(@RequestBody PostSaveRequest req)
+    @PostMapping("/post")
+    public ResponseEntity<PostDto> createPost(@RequestBody PostSaveRequest req)
     {
         Optional<User> author_ = this.users.findByNick("Gory26");
 
@@ -66,15 +68,20 @@ public class NewsController
         User author = author_.get();
         // TODO Authorization (only EDITOR)
 
-        Post post = new Post(req.getTitle(), req.getContent(), LocalDateTime.now(), author);
+        Post post = this.posts.save(new Post(req.getTitle(), req.getContent(), LocalDateTime.now(), author));
 
-        return PostMapper.toDto(this.posts.save(post));
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(post.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(PostMapper.toDto(post));
 
         // TODO Validation
-        // TODO Return codes make sense
     }
 
-    @PostMapping("/post/update/{id}")
+    @PutMapping("/post/{id}")
     public PostDto updatePost(@PathVariable("id") long id, @RequestBody PostSaveRequest req)
     {
         Optional<User> author_ = this.users.findByNick("Gory26");
@@ -107,7 +114,39 @@ public class NewsController
         return PostMapper.toDto(this.posts.save(post));
 
         // TODO Validation
-        // TODO Return codes make sense
+    }
+
+    @DeleteMapping("/post/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable("id") long id)
+    {
+        Optional<User> author_ = this.users.findByNick("Gory26");
+
+        if(author_.isEmpty())
+        {
+            throw new UserNotFoundException("Gory26");
+        }
+
+        User author = author_.get();
+        // TODO Authorization (only EDITOR)
+
+        Optional<Post> post_ = this.posts.findById(id);
+
+        if(post_.isEmpty())
+        {
+            throw new PostNotFoundException(id);
+        }
+
+        Post post = post_.get();
+
+        if(!post.getAuthor().equals(author))
+        {
+            throw new PostUpdateException(PostUpdateException.Reason.NO_RIGHTS);
+        }
+        // TODO Only author or ADMIN
+
+        this.posts.delete(post);
+
+        return ResponseEntity.noContent().build();
     }
 
     // TODO HATEOAS
