@@ -1,0 +1,57 @@
+/* Header/Blog Title */
+header {
+  font-size: 40px;
+  text-align: center;
+  background: #dddddd;
+}
+
+img.logo {
+  max-width: 100%;
+  padding: 30px;
+}
+
+main {
+  flex: 1 0 auto;
+  align-self: center;
+  padding: 10px 10px 20px 10px;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  background-color: white;
+}
+
+article {
+  width: 70%;
+  margin-right: 20px;
+}
+
+aside {
+  width: 30%;
+
+  & > section {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dbdbdb;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+
+  article, aside {
+    width: 100%;
+  }
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  text-align: center;
+  background: #1A1F24;
+
+  & h2 {
+    color: #dddddd;
+  }
+}

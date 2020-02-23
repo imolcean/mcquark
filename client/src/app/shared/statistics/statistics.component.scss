@@ -1,0 +1,12 @@
+.town {
+  margin-bottom: 10px;
+
+  & .category-title {
+    font-size: small;
+    font-weight: bold;
+  }
+
+  & .category-value {
+    font-size: small;
+  }
+}

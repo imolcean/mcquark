@@ -1,0 +1,20 @@
+<h3>Statistics</h3>
+
+<div class="town" *ngFor="let town of towns;">
+  <h4>{{ town.name }}</h4>
+
+  <div>
+    <span class="category-title">Population: &nbsp;</span>
+    <span class="category-value">{{ town.population }}</span>
+  </div>
+
+  <div>
+    <span class="category-title">Golems: &nbsp;</span>
+    <span class="category-value">{{ town.golems }}</span>
+  </div>
+
+  <div>
+    <span class="category-title">Mayor: &nbsp;</span>
+    <span class="category-value">{{ town.mayor }}</span>
+  </div>
+</div>

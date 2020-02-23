@@ -1,0 +1,36 @@
+<header>
+  <img class="logo" src="assets/logo.png" alt="Logo">
+  <app-menu></app-menu>
+</header>
+
+<main>
+  <article>
+    <router-outlet></router-outlet>
+  </article>
+
+  <aside>
+    <section>
+      <app-status></app-status>
+    </section>
+
+    <section>
+      <app-profile-card></app-profile-card>
+    </section>
+
+    <section>
+      <app-statistics></app-statistics>
+    </section>
+
+    <section>
+      <h3>Adds</h3>
+      <p>You can buy some sweet sweet banners</p>
+      <app-icon name="gold-ingot"></app-icon>
+      <app-icon name="emerald"></app-icon>
+      <app-icon name="diamond"></app-icon>
+    </section>
+  </aside>
+</main>
+
+<footer>
+  <h2>Footer</h2>
+</footer>

@@ -1,0 +1,60 @@
+div.profile-card {
+  & div.profile-card-header {
+    display: flex;
+    justify-content: space-evenly;
+    height: 50px;
+    line-height: 50px;
+    background-color: #8e3535;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+
+  & div.profile-card-content {
+    position: relative;
+    display: flex;
+    padding: 20px;
+    background-color: #e8e8e8;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    & div.userpic {
+      width: 30%;
+      margin-right: 10px;
+
+      & img {
+        max-width: 100%;
+      }
+    }
+
+    & div.info {
+      width: 70%;
+
+      & div.nick {
+        font-size: calc(14px + (32 - 14) * ((100vw - 300px) / (1366 - 300)));
+        font-weight: bolder;
+      }
+
+      & div.email {
+        //font-size: calc(14px + (24 - 14) * ((100vw - 300px) / (1366 - 300)));
+        //font-weight: lighter;
+      }
+
+      & ul.roles {
+        margin-top: 10px;
+
+        & li {
+          display: block;
+        }
+      }
+    }
+
+    & img.flag {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+    }
+  }
+}

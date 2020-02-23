@@ -1,0 +1,37 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #F5EFEB;
+  color: #333;
+}
+
+app-root {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* Fake image */
+.fakeimg {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #1D1D1B;
+}
+
+h1, h2, h3 {
+  margin-bottom: 10px;
+}
+
+i.pi {
+  vertical-align: text-bottom;
+}

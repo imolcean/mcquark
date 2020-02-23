@@ -1,0 +1,41 @@
+<p-tabView>
+  <p-tabPanel header="Posts">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="New" icon="pi pi-plus"></button>
+      </div>
+    </p-toolbar>
+
+    <p-table [value]="posts"
+             [paginator]="true"
+             [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50, 100]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3em;">ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Created</th>
+          <th>Modified</th>
+          <th style="width: 8em;"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-post>
+        <tr>
+          <td>{{ post.id }}</td>
+          <td>{{ post.title }}</td>
+          <td>{{ post.authorNick }}</td>
+          <td>{{ post.created | date: 'medium' }}</td>
+          <td>{{ post.modified | date: 'medium' }}</td>
+          <td>
+            <p-button icon="pi pi-pencil" styleClass="ui-button-info" (onClick)="onPostEdit(post)"></p-button>
+            <p-button icon="pi pi-times" styleClass="ui-button-danger" (onClick)="onPostDelete(post)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel>
+
+  <p-tabPanel header="Adds" [disabled]="true">
+  </p-tabPanel>
+</p-tabView>

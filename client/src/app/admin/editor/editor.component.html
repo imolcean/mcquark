@@ -1,0 +1,9 @@
+<h1>Post editor</h1>
+
+<label>
+  <input pInputText type="text" placeholder="Title" [(ngModel)]="title">
+</label>
+
+<p-editor [(ngModel)]="content" [style]="{'height':'320px'}"></p-editor>
+
+<p>{{ content }}</p>
