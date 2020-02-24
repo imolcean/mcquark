@@ -38,6 +38,7 @@ aside {
 @media screen and (max-width: 768px) {
   main {
     flex-direction: column;
+    width: 100%;
   }
 
   article, aside {

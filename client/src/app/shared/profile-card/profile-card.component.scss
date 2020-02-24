@@ -1,4 +1,7 @@
 div.profile-card {
+  width: 397px;
+  height: 250px;
+
   & div.profile-card-header {
     display: flex;
     justify-content: space-evenly;
@@ -14,6 +17,7 @@ div.profile-card {
   & div.profile-card-content {
     position: relative;
     display: flex;
+    height: calc(100% - 50px);
     padding: 20px;
     background-color: #e8e8e8;
     border-bottom-left-radius: 20px;
@@ -32,7 +36,7 @@ div.profile-card {
       width: 70%;
 
       & div.nick {
-        font-size: calc(14px + (32 - 14) * ((100vw - 300px) / (1366 - 300)));
+        font-size: 32px;
         font-weight: bolder;
       }
 
@@ -55,6 +59,31 @@ div.profile-card {
       bottom: 20px;
       right: 20px;
       width: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  div.profile-card {
+    width: unset;
+    height: unset;
+  }
+
+  div.profile-card div.profile-card-header, img.flag {
+    display: none;
+  }
+
+  div.profile-card div.profile-card-content {
+    display: block;
+    padding: 0;
+    background: transparent;
+
+    & div.userpic {
+      width: 100px;
+    }
+
+    & div.info div.nick {
+      font-size: 24px;
     }
   }
 }
