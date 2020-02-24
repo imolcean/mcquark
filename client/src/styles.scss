@@ -35,3 +35,17 @@ h1, h2, h3 {
 i.pi {
   vertical-align: text-bottom;
 }
+
+.ui-button-times {
+  border-radius: 0 !important;
+  background-color: #8e3535 !important;
+  border: 1px solid #8e3535 !important;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #8e3535;
+  }
+}

@@ -1,0 +1,15 @@
+<form *ngIf="nick === undefined">
+  <label>
+    <input pInputText #username type="text" placeholder="Username">
+  </label>
+
+  <label>
+    <input pInputText type="password" placeholder="Password">
+  </label>
+
+  <button pButton type="submit" class="ui-button-times" label="Login" (click)="login(username.value)"></button>
+</form>
+
+<div *ngIf="nick !== undefined">
+  You are logged in as <a routerLink="profile">{{ nick }}</a>
+</div>

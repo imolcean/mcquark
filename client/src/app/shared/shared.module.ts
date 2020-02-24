@@ -9,6 +9,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { StatusComponent } from './status/status.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { LoginComponent } from './login/login.component';
+import { ButtonModule } from "primeng/button";
+import { InputTextModule } from "primeng/inputtext";
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
     IconComponent,
     StatusComponent,
     StatisticsComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    LoginComponent
   ],
   exports: [
     CardComponent,
@@ -25,13 +29,16 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
     IconComponent,
     StatusComponent,
     StatisticsComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     HttpClientModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    InputTextModule,
+    ButtonModule
   ]
 })
 export class SharedModule { }
