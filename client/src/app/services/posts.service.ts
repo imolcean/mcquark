@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Post} from "../dto/post";
+import {PostDto} from "../dto/dto";
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +8,11 @@ export class PostsService {
 
   constructor() {}
 
-  public getDummyPosts(amount: number): Post[] {
-    const posts: Post[] = [];
+  public getDummyPosts(amount: number): PostDto[] {
+    const posts: PostDto[] = [];
 
     for (let i = 0; i < amount; i++) {
-      const post: Post = {
+      const post: PostDto = {
         id: i,
         title: "Post " + i,
         content: "<h1>Post</h1><p>Lorem ipsum...</p>",

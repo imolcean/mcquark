@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Post} from "../../dto/post";
 import {PostsService} from "../../services/posts.service";
+import {PostDto} from "../../dto/dto";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   // TODO: Column width
   // TODO: Show tabs based on user's roles
 
-  public posts: Post[];
+  public posts: PostDto[];
 
   constructor(private postsService: PostsService) {}
 
@@ -26,13 +26,13 @@ export class DashboardComponent implements OnInit {
     console.log("onPostCreate()");
   }
 
-  public onPostEdit(post: Post): void
+  public onPostEdit(post: PostDto): void
   {
     // TODO
     console.log(post);
   }
 
-  public onPostDelete(post: Post): void
+  public onPostDelete(post: PostDto): void
   {
     // TODO
     console.log(post);

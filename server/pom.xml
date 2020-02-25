@@ -14,6 +14,32 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>cz.habarta.typescript-generator</groupId>
+                <artifactId>typescript-generator-maven-plugin</artifactId>
+                <version>${typescript-generator.version}</version>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>generate</id>-->
+<!--                        <goals>-->
+<!--                            <goal>generate</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>process-classes</phase>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+                <configuration>
+                    <jsonLibrary>jackson2</jsonLibrary>
+                    <outputFileType>implementationFile</outputFileType>
+                    <outputKind>module</outputKind>
+                    <outputFile>../client/src/app/dto/dto.ts</outputFile>
+                    <classPatterns>
+                        <pattern>tk.nenua4e.mc.server.dto.*Dto</pattern>
+                        <pattern>tk.nenua4e.mc.server.controller.request.*</pattern>
+                    </classPatterns>
+                    <scanSpringApplication>true</scanSpringApplication>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -40,5 +66,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

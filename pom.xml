@@ -29,6 +29,7 @@
         <java.version>11</java.version>
         <node.version>v12.16.1</node.version>
         <npm.version>6.3.0</npm.version>
+        <typescript-generator.version>2.20.583</typescript-generator.version>
     </properties>
 
     <dependencies>
@@ -118,6 +119,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
 </project>
