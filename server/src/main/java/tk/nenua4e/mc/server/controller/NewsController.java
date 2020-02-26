@@ -1,6 +1,5 @@
 package tk.nenua4e.mc.server.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RestController("/api/v1/news")
+@RestController()
+@RequestMapping("api/v1/news")
 public class NewsController
 {
     private UserRepository users;
