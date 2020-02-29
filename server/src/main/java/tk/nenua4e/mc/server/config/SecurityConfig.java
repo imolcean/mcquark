@@ -10,11 +10,11 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     @Override
-    public void configure(WebSecurity web) throws Exception
+    public void configure(WebSecurity web)
     {
         web
                 .ignoring()
-                .antMatchers("/index.html", "/assets/**", "/*.js", "/*.css", "/favicon.ico", "/*.woff*");
+                .antMatchers("/index.html", "/assets/**", "/*.js", "/*.css", "/favicon.ico", "/*.woff*", "/*.ttf");
     }
 
     @Override
@@ -24,12 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/project", "/contact").permitAll()
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/v1/news/feed").permitAll()
+                .antMatchers("/", "/project", "/contact", "/profile").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
-                .logout();
+                .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 }

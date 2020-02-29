@@ -28,7 +28,8 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'admin', component: DashboardComponent },
-  { path: 'admin/editor', component: EditorComponent }
+  { path: 'admin/editor', component: EditorComponent },
+  { path: '**', component: NewsComponent }
 ];
 
 @NgModule({

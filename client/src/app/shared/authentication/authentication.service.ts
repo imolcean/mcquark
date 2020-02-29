@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {BehaviorSubject, Observable} from "rxjs";
 
 export class Credentials {
   username: string;
@@ -15,17 +16,16 @@ export class Credentials {
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthenticationService {
 
-  private _authenticated: boolean;
+  private userSubject$: BehaviorSubject<string>;
 
-  public nick: string;
+  public user$: Observable<string>;
 
-  public get authenticated(): boolean {
-    return this._authenticated;
+  constructor(private http: HttpClient, private router: Router) {
+    this.userSubject$ = new BehaviorSubject<string>('');
+    this.user$ = this.userSubject$.asObservable();
   }
-
-  constructor(private http: HttpClient, private router: Router) {}
 
   // TODO: Request UserDto instead of boolean
   public authenticate(credentials: Credentials): void {
@@ -37,27 +37,21 @@ export class LoginService {
       });
     }
 
-    this.http.get('user', { headers: headers })
+    this.http.post('user', null, { headers: headers })
       .subscribe(response => {
         if (response['name']) {
-          this._authenticated = true;
-          this.nick = response['name'];
+          this.userSubject$.next(response['name']);
         }
         else {
-          this._authenticated = false;
-          this.nick = undefined;
+          this.userSubject$.next(undefined);
         }
       });
   }
 
   public logout(): void {
     this.http.post('logout', null)
-      .subscribe(response => {
-        if (!response) {
-          return;
-        }
-
-        this._authenticated = false;
+      .subscribe(_response => {
+        this.userSubject$.next(undefined);
         this.router.navigateByUrl('/');
       });
   }

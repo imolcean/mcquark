@@ -9,7 +9,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { StatusComponent } from './status/status.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
-import { LoginComponent } from './login/login.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 
@@ -21,7 +21,7 @@ import { InputTextModule } from "primeng/inputtext";
     StatusComponent,
     StatisticsComponent,
     ProfileCardComponent,
-    LoginComponent
+    AuthenticationComponent
   ],
   exports: [
     CardComponent,
@@ -30,7 +30,7 @@ import { InputTextModule } from "primeng/inputtext";
     StatusComponent,
     StatisticsComponent,
     ProfileCardComponent,
-    LoginComponent
+    AuthenticationComponent
   ],
   imports: [
     CommonModule,
