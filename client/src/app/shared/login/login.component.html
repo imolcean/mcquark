@@ -1,15 +1,16 @@
-<form *ngIf="nick === undefined">
+<form *ngIf="!auth.authenticated" (submit)="login($event, username.value, password.value)">
   <label>
     <input pInputText #username type="text" placeholder="Username">
   </label>
 
   <label>
-    <input pInputText type="password" placeholder="Password">
+    <input pInputText #password type="password" placeholder="Password">
   </label>
 
-  <button pButton type="submit" class="ui-button-times" label="Login" (click)="login(username.value)"></button>
+  <button pButton type="submit" class="ui-button-times" label="Login"></button>
 </form>
 
-<div *ngIf="nick !== undefined">
-  You are logged in as <a routerLink="profile">{{ nick }}</a>
+<div *ngIf="auth.authenticated">
+  <p>You are logged in as <a routerLink="profile">{{ auth.nick }}</a></p>
+  <p><a href="#" (click)="logout()">Logout</a></p>
 </div>

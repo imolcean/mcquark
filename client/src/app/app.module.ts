@@ -19,6 +19,8 @@ import {ToolbarModule} from "primeng/toolbar";
 import {TabViewModule} from "primeng/tabview";
 import { ProfileComponent } from './profile/profile.component';
 import {FieldsetModule} from "primeng/fieldset";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {XhrInterceptor} from "./xhr-interceptor";
 
 const appRoutes: Routes = [
   { path: '', component: NewsComponent },
@@ -53,7 +55,7 @@ const appRoutes: Routes = [
     TabViewModule,
     FieldsetModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
