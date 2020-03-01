@@ -9,7 +9,9 @@ export class StatusComponent implements OnInit {
 
   public status: boolean;
 
-  constructor() {}
+  constructor() {
+    this.status = false;
+  }
 
   ngOnInit(): void {
     this.status = true; // TODO

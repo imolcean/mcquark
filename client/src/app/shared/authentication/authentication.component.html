@@ -1,4 +1,4 @@
-<form *ngIf="!(auth.user$ | async) else authenticated" (submit)="login($event, username.value, password.value)">
+<form *ngIf="!(username$ | async) else authenticated" (submit)="login($event, username.value, password.value)">
   <label>
     <input pInputText #username type="text" placeholder="Username">
   </label>
@@ -7,12 +7,12 @@
     <input pInputText #password type="password" placeholder="Password">
   </label>
 
-  <p *ngIf="auth.lastAuthFailed$ | async">Login failed</p>
+  <p *ngIf="loginFailed$ | async">Login failed</p>
 
   <button pButton type="submit" class="ui-button-times" label="Login"></button>
 </form>
 
 <ng-template #authenticated>
-  <p>You are logged in as <a routerLink="profile">{{ auth.user$ | async }}</a></p>
+  <p>You are logged in as <a routerLink="profile">{{ username$ | async }}</a></p>
   <p><a href="#" (click)="logout()">Logout</a></p>
 </ng-template>

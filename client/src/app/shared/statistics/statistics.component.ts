@@ -10,7 +10,9 @@ export class StatisticsComponent implements OnInit {
 
   public towns: TownStatistics[];
 
-  constructor() {}
+  constructor() {
+    this.towns = [];
+  }
 
   ngOnInit(): void {
     // TODO

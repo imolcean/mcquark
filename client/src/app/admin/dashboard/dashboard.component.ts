@@ -14,7 +14,9 @@ export class DashboardComponent implements OnInit {
 
   public posts: PostDto[];
 
-  constructor(private postsService: PostsService) {}
+  constructor(private postsService: PostsService) {
+    this.posts = [];
+  }
 
   ngOnInit(): void {
     this.posts = this.postsService.getDummyPosts(500);

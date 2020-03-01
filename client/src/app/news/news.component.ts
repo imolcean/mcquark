@@ -13,7 +13,9 @@ export class NewsComponent implements OnInit {
 
   public posts: PostDto[];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.posts = [];
+  }
 
   ngOnInit(): void {
     this.http.get<PostDto[]>('api/v1/news/feed').subscribe(data => this.posts = data);

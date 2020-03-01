@@ -1,7 +1,8 @@
 <section>
   <h1>My profile</h1>
 
-  <app-profile-card></app-profile-card>
+  <app-profile-card [username]="(user$ | async)?.username" [email]="(user$ | async)?.email"></app-profile-card>
+
   <div class="actions">
     <p-button icon="pi pi-envelope" label="Edit email" styleClass="ui-button-times" (onClick)="null"></p-button>
     <p-button icon="pi pi-key" label="Change password" styleClass="ui-button-times" (onClick)="null"></p-button>

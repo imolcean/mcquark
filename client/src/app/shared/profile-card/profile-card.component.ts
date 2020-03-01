@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-profile-card',
   templateUrl: './profile-card.component.html',
   styleUrls: ['./profile-card.component.scss']
 })
-export class ProfileCardComponent implements OnInit {
+export class ProfileCardComponent {
 
-  constructor() { }
+  @Input()
+  public username: string;
 
-  ngOnInit(): void {
+  @Input()
+  public email: string;
+
+  // TODO: Roles
+
+  constructor() {
+    this.username = '';
+    this.email = '';
   }
 
 }

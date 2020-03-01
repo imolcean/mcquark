@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Credentials, AuthenticationService} from "./authentication.service";
+import {AuthenticationService} from "./authentication.service";
+import {Credentials} from "./credentials";
+import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {UserDto} from "../../dto/dto";
 
 @Component({
   selector: 'app-login',
@@ -8,10 +12,17 @@ import {Credentials, AuthenticationService} from "./authentication.service";
 })
 export class AuthenticationComponent implements OnInit {
 
-  // TODO: Login error message
+  public loginFailed$: Observable<boolean>;
+
+  public username$: Observable<string>;
 
   constructor(public auth: AuthenticationService) {
-    this.auth.authenticate(undefined);
+    this.loginFailed$ = this.auth.lastAuthFailed$;
+    this.username$ = this.auth.user$.pipe(
+      map((user: UserDto | undefined) => user ? user.username : '')
+    );
+
+    this.auth.authenticate();
   }
 
   ngOnInit(): void {}

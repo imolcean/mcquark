@@ -3,38 +3,29 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BehaviorSubject, Observable} from "rxjs";
 import {UserDto} from "../../dto/dto";
-
-export class Credentials {
-  username: string;
-  password: string;
-
-  constructor(username: string, password: string) {
-    this.username = username;
-    this.password = password;
-  }
-}
+import {Credentials} from "./credentials";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private userSubject$: BehaviorSubject<string>;
-  public user$: Observable<string>;
+  private userSubject$: BehaviorSubject<UserDto | undefined>;
+  public user$: Observable<UserDto | undefined>;
 
   private lastAuthFailedSubject$: BehaviorSubject<boolean>;
   public lastAuthFailed$: Observable<boolean>;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.userSubject$ = new BehaviorSubject<string>('');
+    this.userSubject$ = new BehaviorSubject<UserDto | undefined>(undefined);
     this.user$ = this.userSubject$.asObservable();
 
     this.lastAuthFailedSubject$ = new BehaviorSubject<boolean>(false);
     this.lastAuthFailed$ = this.lastAuthFailedSubject$.asObservable();
   }
 
-  public authenticate(credentials: Credentials): void {
-    let headers: HttpHeaders;
+  public authenticate(credentials?: Credentials): void {
+    let headers: HttpHeaders | undefined;
 
     if (credentials) {
       headers = new HttpHeaders({
@@ -44,7 +35,7 @@ export class AuthenticationService {
 
     this.http.post<UserDto>('api/v1/auth/user', null, { headers: headers })
       .subscribe(user => {
-        this.userSubject$.next(user.username);
+        this.userSubject$.next(user);
         this.lastAuthFailedSubject$.next(false);
       }, _error => {
         if (credentials) {
