@@ -8,6 +8,8 @@ import {Credentials, AuthenticationService} from "./authentication.service";
 })
 export class AuthenticationComponent implements OnInit {
 
+  // TODO: Login error message
+
   constructor(public auth: AuthenticationService) {
     this.auth.authenticate(undefined);
   }
@@ -15,8 +17,13 @@ export class AuthenticationComponent implements OnInit {
   ngOnInit(): void {}
 
   public login(event: Event, username: string, password: string): void {
-    this.auth.authenticate(new Credentials(username, password));
     event.preventDefault();
+
+    if (!username || !password) {
+      return;
+    }
+
+    this.auth.authenticate(new Credentials(username, password));
   }
 
   public logout(): void {

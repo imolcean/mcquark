@@ -3,6 +3,8 @@ package tk.nenua4e.mc.server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import tk.nenua4e.mc.server.model.Post;
 import tk.nenua4e.mc.server.model.User;
@@ -17,6 +19,8 @@ public class DummyDataLoader implements ApplicationRunner
     private UserRepository users;
     private PostRepository posts;
 
+    private PasswordEncoder encoder = new BCryptPasswordEncoder();
+
     @Autowired
     public DummyDataLoader(UserRepository userRepository, PostRepository postRepository) {
         this.users = userRepository;
@@ -24,9 +28,9 @@ public class DummyDataLoader implements ApplicationRunner
     }
 
     public void run(ApplicationArguments args) {
-        User gory26 = new User("Gory26");
-        User quarkian = new User("Quarkian");
-        User shushumiga = new User("Shushumiga");
+        User gory26 = new User("Gory26", this.encoder.encode("abc123"));
+        User quarkian = new User("Quarkian", this.encoder.encode("abc123"));
+        User shushumiga = new User("Shushumiga", this.encoder.encode("abc123"));
 
         this.users.save(gory26);
         this.users.save(quarkian);

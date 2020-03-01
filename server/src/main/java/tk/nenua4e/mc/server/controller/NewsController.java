@@ -58,7 +58,7 @@ public class NewsController
     @PostMapping("/post")
     public ResponseEntity<PostDto> createPost(@RequestBody PostSaveRequest req)
     {
-        Optional<User> author_ = this.users.findByNick("Gory26");
+        Optional<User> author_ = this.users.findByUsername("Gory26");
 
         if(author_.isEmpty())
         {
@@ -84,7 +84,7 @@ public class NewsController
     @PutMapping("/post/{id}")
     public PostDto updatePost(@PathVariable("id") long id, @RequestBody PostSaveRequest req)
     {
-        Optional<User> author_ = this.users.findByNick("Gory26");
+        Optional<User> author_ = this.users.findByUsername("Gory26");
 
         if(author_.isEmpty())
         {
@@ -119,7 +119,7 @@ public class NewsController
     @DeleteMapping("/post/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") long id)
     {
-        Optional<User> author_ = this.users.findByNick("Gory26");
+        Optional<User> author_ = this.users.findByUsername("Gory26");
 
         if(author_.isEmpty())
         {

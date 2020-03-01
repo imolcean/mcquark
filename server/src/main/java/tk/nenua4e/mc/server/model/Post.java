@@ -47,6 +47,6 @@ public class Post
     public String toString()
     {
         return String.format("Post(title=%s, content=%s, dateTime=%s, author=%s)",
-                this.title, this.content, this.created, this.author.getNick());
+                this.title, this.content, this.created, this.author.getUsername());
     }
 }

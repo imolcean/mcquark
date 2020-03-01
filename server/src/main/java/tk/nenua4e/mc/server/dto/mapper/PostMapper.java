@@ -13,6 +13,6 @@ public class PostMapper
                 post.getContent(),
                 post.getCreated(),
                 post.getModified(),
-                post.getAuthor().getNick());
+                post.getAuthor().getUsername());
     }
 }

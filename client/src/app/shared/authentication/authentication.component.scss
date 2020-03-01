@@ -1,8 +1,15 @@
-input {
-  margin-bottom: 5px;
+form {
+  & input {
+    margin-bottom: 5px;
 
-  &, button {
-    display: block;
+    &, button {
+      display: block;
+    }
+  }
+
+  & p {
+    margin-bottom: 5px;
+    color: #8e3535;
   }
 }
 

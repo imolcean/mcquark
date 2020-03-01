@@ -7,6 +7,8 @@
     <input pInputText #password type="password" placeholder="Password">
   </label>
 
+  <p *ngIf="auth.lastAuthFailed$ | async">Login failed</p>
+
   <button pButton type="submit" class="ui-button-times" label="Login"></button>
 </form>
 

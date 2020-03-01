@@ -1,4 +1,4 @@
-package tk.nenua4e.mc.server.config;
+package tk.nenua4e.mc.server.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController
 {
-    @RequestMapping({"/project", "/contact", "/profile"})
+    @RequestMapping({"/project", "/contact", "/profile", "/admin"})
     public String index()
     {
         return "forward:/index.html";
