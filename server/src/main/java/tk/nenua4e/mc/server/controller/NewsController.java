@@ -1,6 +1,7 @@
 package tk.nenua4e.mc.server.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,9 +14,10 @@ import tk.nenua4e.mc.server.exception.UserNotFoundException;
 import tk.nenua4e.mc.server.model.Post;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.PostRepository;
-import tk.nenua4e.mc.server.repository.UserRepository;
+import tk.nenua4e.mc.server.service.UserService;
 
 import java.net.URI;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,10 @@ import java.util.Optional;
 @RequestMapping("api/v1/news")
 public class NewsController
 {
-    private UserRepository users;
+    private UserService users;
     private PostRepository posts;
 
-    public NewsController(UserRepository users, PostRepository postRepository)
+    public NewsController(UserService users, PostRepository postRepository)
     {
         this.users = users;
         this.posts = postRepository;
@@ -55,18 +57,11 @@ public class NewsController
                 .orElseThrow(() -> new PostNotFoundException(id));
     }
 
-    @PostMapping("/post")
-    public ResponseEntity<PostDto> createPost(@RequestBody PostSaveRequest req)
+    @PostMapping("/feed")
+    @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
+    public ResponseEntity<PostDto> createPost(Principal principal, @RequestBody PostSaveRequest req)
     {
-        Optional<User> author_ = this.users.findByUsername("Gory26");
-
-        if(author_.isEmpty())
-        {
-            throw new UserNotFoundException("Gory26");
-        }
-
-        User author = author_.get();
-        // TODO Authorization (only EDITOR)
+        User author = this.users.loadUserByUsername(principal.getName());
 
         Post post = this.posts.save(new Post(req.getTitle(), req.getContent(), LocalDateTime.now(), author));
 
@@ -78,21 +73,14 @@ public class NewsController
 
         return ResponseEntity.created(location).body(PostMapper.toDto(post));
 
-        // TODO Validation
+        // TODO Validation (creation using PostService)
     }
 
     @PutMapping("/post/{id}")
-    public PostDto updatePost(@PathVariable("id") long id, @RequestBody PostSaveRequest req)
+    @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
+    public PostDto updatePost(Principal principal, @PathVariable("id") long id, @RequestBody PostSaveRequest req)
     {
-        Optional<User> author_ = this.users.findByUsername("Gory26");
-
-        if(author_.isEmpty())
-        {
-            throw new UserNotFoundException("Gory26");
-        }
-
-        User author = author_.get();
-        // TODO Authorization (only EDITOR)
+        User user = this.users.loadUserByUsername(principal.getName());
 
         Optional<Post> post_ = this.posts.findById(id);
 
@@ -103,31 +91,27 @@ public class NewsController
 
         Post post = post_.get();
 
-        if(!post.getAuthor().equals(author))
+        // Only admins can modify posts of other users
+        if(!post.getAuthor().equals(user) && !user.getRoles().contains("ADMIN"))
         {
             throw new PostUpdateException(PostUpdateException.Reason.NO_RIGHTS);
         }
-        // TODO Only author or ADMIN
 
-        post.setTitle(req.getTitle()).setContent(req.getContent()).setModified(LocalDateTime.now());
+        post
+                .setTitle(req.getTitle())
+                .setContent(req.getContent())
+                .setModified(LocalDateTime.now());
 
         return PostMapper.toDto(this.posts.save(post));
 
-        // TODO Validation
+        // TODO Validation (update using PostService)
     }
 
     @DeleteMapping("/post/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable("id") long id)
+    @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
+    public ResponseEntity<Void> deletePost(Principal principal, @PathVariable("id") long id)
     {
-        Optional<User> author_ = this.users.findByUsername("Gory26");
-
-        if(author_.isEmpty())
-        {
-            throw new UserNotFoundException("Gory26");
-        }
-
-        User author = author_.get();
-        // TODO Authorization (only EDITOR)
+        User user = this.users.loadUserByUsername(principal.getName());
 
         Optional<Post> post_ = this.posts.findById(id);
 
@@ -138,11 +122,11 @@ public class NewsController
 
         Post post = post_.get();
 
-        if(!post.getAuthor().equals(author))
+        // Only admins can delete posts of other users
+        if(!post.getAuthor().equals(user) && !user.getRoles().contains("ADMIN"))
         {
             throw new PostUpdateException(PostUpdateException.Reason.NO_RIGHTS);
         }
-        // TODO Only author or ADMIN
 
         this.posts.delete(post);
 

@@ -13,11 +13,15 @@ export class ProfileCardComponent {
   @Input()
   public email: string;
 
+  @Input()
+  public roles: string[];
+
   // TODO: Roles
 
   constructor() {
     this.username = '';
     this.email = '';
+    this.roles = [];
   }
 
 }

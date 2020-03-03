@@ -1,5 +1,6 @@
 package tk.nenua4e.mc.server.exception;
 
+// TODO: Remove
 public class UserNotFoundException extends RuntimeException
 {
     public UserNotFoundException(long id)

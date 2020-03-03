@@ -23,12 +23,17 @@
     <div class="info">
       <div class="nick">{{ username }}</div>
       <div class="email">{{ email || 'No email' }}</div>
-      <ul class="roles">
-        <li><i class="pi pi-desktop"></i> Player</li>
-        <li><i class="pi pi-briefcase"></i> Op</li>
-        <li><i class="pi pi-palette"></i> Editor</li>
-        <li><i class="pi pi-id-card"></i> Admin</li>
-      </ul>
+
+      <span *ngFor="let role of roles">
+        {{ role }}
+      </span>
+
+<!--      <ul class="roles">-->
+<!--        <li><i class="pi pi-desktop"></i> Player</li>-->
+<!--        <li><i class="pi pi-briefcase"></i> Op</li>-->
+<!--        <li><i class="pi pi-palette"></i> Editor</li>-->
+<!--        <li><i class="pi pi-id-card"></i> Admin</li>-->
+<!--      </ul>-->
     </div>
 
     <img class="flag" src="assets/flag_h.png" alt="flag">

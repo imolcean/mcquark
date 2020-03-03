@@ -4,13 +4,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @Accessors(chain = true)
@@ -30,6 +29,8 @@ public class User implements UserDetails
 
     private String email;
 
+    private String rolesAbbr;
+
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     private Set<Post> posts;
 
@@ -37,16 +38,55 @@ public class User implements UserDetails
 
     public User(String username, String password)
     {
+        this(username, password, null);
+    }
+
+    public User(String username, String password, String rolesAbbr)
+    {
         this.username = username;
         this.password = password;
+        this.rolesAbbr = rolesAbbr;
         this.posts = new HashSet<>();
+    }
+
+    public List<String> getRoles()
+    {
+        List<String> list = new ArrayList<>();
+
+        list.add("PLAYER");
+
+        if(this.getRolesAbbr() == null)
+        {
+            return list;
+        }
+
+        for(char c : this.getRolesAbbr().toUpperCase().toCharArray())
+        {
+            switch (c)
+            {
+                case 'O':
+                    list.add("OP");
+                    break;
+                case 'E':
+                    list.add("EDITOR");
+                    break;
+                case 'A':
+                    list.add("ADMIN");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return list;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        // TODO: Roles
-        return Collections.emptyList();
+        return this.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
     }
 
     @Override

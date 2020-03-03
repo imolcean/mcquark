@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
@@ -16,4 +18,6 @@ public class UserDto
     private String username;
 
     private String email;
+
+    private List<String> roles;
 }

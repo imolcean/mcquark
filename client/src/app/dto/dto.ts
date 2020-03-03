@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-03-01 14:27:12.
+// Generated using typescript-generator version 2.20.583 on 2020-03-03 16:52:53.
 
 export interface PostSaveRequest {
     title: string;
@@ -20,4 +20,5 @@ export interface UserDto {
     id: number;
     username: string;
     email: string;
+    roles: string[];
 }
