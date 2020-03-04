@@ -22,14 +22,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     }
 
     @Override
-    public void configure(WebSecurity web)
-    {
-        web
-                .ignoring()
-                .antMatchers("/index.html", "/assets/**", "/*.js", "/*.css", "/favicon.ico", "/*.woff*", "/*.ttf");
-    }
-
-    @Override
     public void configure(HttpSecurity http) throws Exception
     {
         http
