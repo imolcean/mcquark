@@ -7,9 +7,10 @@
     <input pInputText #password type="password" placeholder="Password">
   </label>
 
-  <p *ngIf="loginFailed$ | async">Login failed</p>
+  <p class="warning" *ngIf="loginFailed$ | async">Login failed</p>
 
   <button pButton type="submit" class="ui-button-times" label="Login"></button>
+  <button pButton class="ui-button-times" routerLink="register" label="Register"></button>
 </form>
 
 <ng-template #authenticated>

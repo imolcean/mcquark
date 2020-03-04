@@ -21,12 +21,15 @@ import { ProfileComponent } from './profile/profile.component';
 import {FieldsetModule} from "primeng/fieldset";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {XhrInterceptor} from "./xhr-interceptor";
+import { UserEditorComponent } from './registration/user-editor.component';
+import {CheckboxModule} from "primeng/checkbox";
 
 const appRoutes: Routes = [
   { path: '', component: NewsComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'register', component: UserEditorComponent },
   { path: 'admin', component: DashboardComponent },
   { path: 'admin/editor', component: EditorComponent },
   { path: '**', component: NewsComponent }
@@ -40,22 +43,24 @@ const appRoutes: Routes = [
     ContactComponent,
     DashboardComponent,
     EditorComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserEditorComponent
   ],
-  imports: [
-    RouterModule.forRoot(appRoutes),
-    BrowserModule,
-    NoopAnimationsModule,
-    FormsModule,
-    SharedModule,
-    EditorModule,
-    InputTextModule,
-    TableModule,
-    ButtonModule,
-    ToolbarModule,
-    TabViewModule,
-    FieldsetModule
-  ],
+    imports: [
+        RouterModule.forRoot(appRoutes),
+        BrowserModule,
+        NoopAnimationsModule,
+        FormsModule,
+        SharedModule,
+        EditorModule,
+        InputTextModule,
+        TableModule,
+        ButtonModule,
+        ToolbarModule,
+        TabViewModule,
+        FieldsetModule,
+        CheckboxModule
+    ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

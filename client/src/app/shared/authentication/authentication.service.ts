@@ -45,10 +45,9 @@ export class AuthenticationService {
   }
 
   public logout(): void {
-    this.http.post<void>('api/v1/auth/logout', null)
-      .subscribe(_response => {
-        this.userSubject$.next(undefined);
-        this.router.navigateByUrl('/');
-      });
+    this.http.post<void>('api/v1/auth/logout', null).subscribe(_response => {
+      this.userSubject$.next(undefined);
+      this.router.navigateByUrl('/');
+    });
   }
 }

@@ -1,0 +1,54 @@
+<h1>Registration</h1>
+
+<form (submit)="submit($event)">
+  <label>
+    <input pInputText
+           type="text"
+           name="username"
+           placeholder="Username"
+           [(ngModel)]="request.name"
+           required
+           minlength="4"
+           #username="ngModel">
+  </label>
+
+  <label>
+    <input pInputText
+           type="password"
+           name="password"
+           placeholder="Password"
+           [(ngModel)]="request.password"
+           required
+           minlength="6"
+           #password="ngModel">
+  </label>
+
+  <label>
+    <input pInputText
+           type="password"
+           name="password-confirm"
+           placeholder="Password once again"
+           required
+           minlength="6"
+           #passwordConfirm>
+  </label>
+
+  <label>
+    <input pInputText
+           type="text"
+           name="email"
+           placeholder="Email"
+           [(ngModel)]="request.email"
+           required
+           #email="ngModel">
+  </label>
+
+  <p-fieldset legend="Roles">
+    <!-- TODO: Show if admin -->
+    <p-checkbox name="roles" value="OP" label="Op" [(ngModel)]="request.roles"></p-checkbox>
+    <p-checkbox name="roles" value="EDITOR" label="Editor" [(ngModel)]="request.roles"></p-checkbox>
+    <p-checkbox name="roles" value="ADMIN" label="Admin" [(ngModel)]="request.roles"></p-checkbox>
+  </p-fieldset>
+
+  <button pButton type="submit" class="ui-button-times" label="Submit"></button>
+</form>

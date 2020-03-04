@@ -1,0 +1,14 @@
+form {
+  & input {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  & p-checkbox {
+    display: block;
+  }
+
+  & button {
+    margin-top: 5px;
+  }
+}
