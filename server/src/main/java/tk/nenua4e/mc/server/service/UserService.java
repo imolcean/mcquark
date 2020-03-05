@@ -2,7 +2,6 @@ package tk.nenua4e.mc.server.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.UserDto;
@@ -11,13 +10,11 @@ import tk.nenua4e.mc.server.exception.UserNotFoundException;
 import tk.nenua4e.mc.server.exception.UserUpdateException;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.UserRepository;
-import tk.nenua4e.mc.server.utils.RolesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // TODO Decouple from UserDetailsService
-// TODO Test
 
 @Service
 public class UserService implements UserDetailsService
@@ -57,26 +54,37 @@ public class UserService implements UserDetailsService
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    public UserDto getUser(String username)
+    {
+        return this.users.findByUsername(username)
+                .map(UserMapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException(username));
+    }
+
     public UserDto createUser(UserDto dto)
     {
+        // TODO Validate
+
         User user = new User(
                 dto.getUsername(),
                 dto.getPassword().orElseThrow(() -> new UserUpdateException(UserUpdateException.Reason.VALIDATION_FAILED)),
                 dto.getEmail().orElse(null),
-                RolesUtils.abbreviateStrings(dto.getRoles()));
+                dto.getRoles());
 
         return UserMapper.toDto(this.users.save(user));
     }
 
     public UserDto updateUser(UserDto dto)
     {
+        // TODO Validate
+
         User user = this.users.findById(dto.getId())
                 .orElseThrow(() -> new UserNotFoundException(dto.getId()));
 
         user.setUsername(dto.getUsername());
         user.setPassword(dto.getPassword().map(pass -> this.encoder.encode(pass)).orElse(user.getPassword()));
         user.setEmail(dto.getEmail().orElse(null));
-        user.setRolesAbbr(RolesUtils.abbreviateStrings(dto.getRoles()));
+        user.setRoles(dto.getRoles());
 
         return UserMapper.toDto(this.users.save(user));
     }

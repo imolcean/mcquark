@@ -31,7 +31,7 @@ public class DummyDataLoader implements ApplicationRunner
     public void run(ApplicationArguments args) {
         User gory26 = new User("Gory26", this.encoder.encode("abc123"), null, "OEA");
         User quarkian = new User("Quarkian", this.encoder.encode("abc123"), null, "E");
-        User shushumiga = new User("Shushumiga", this.encoder.encode("abc123"));
+        User shushumiga = new User("Shushumiga", this.encoder.encode("abc123"), "shushumiga@creeperov.net");
 
         this.users.save(gory26);
         this.users.save(quarkian);

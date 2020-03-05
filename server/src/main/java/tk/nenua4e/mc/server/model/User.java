@@ -38,12 +38,18 @@ public class User implements UserDetails
 
     public User(String username, String password)
     {
-        this(username, password, null, null);
+        this(username, password, null, (String) null);
     }
 
     public User(String username, String password, String email)
     {
-        this(username, password, email, null);
+        this(username, password, email, (String) null);
+    }
+
+    public User(String username, String password, String email, Collection<String> roles)
+    {
+        this(username, password, email, (String) null);
+        this.setRoles(roles);
     }
 
     public User(String username, String password, String email, String rolesAbbr)
@@ -83,6 +89,31 @@ public class User implements UserDetails
         }
 
         return list;
+    }
+
+    public void setRoles(Collection<String> roles)
+    {
+        StringBuilder abbr = new StringBuilder();
+
+        for(String str : roles)
+        {
+            switch (str.toUpperCase())
+            {
+                case "OP":
+                    abbr.append("O");
+                    break;
+                case "EDITOR":
+                    abbr.append("E");
+                    break;
+                case "ADMIN":
+                    abbr.append("A");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        this.setRolesAbbr(abbr.toString());
     }
 
     @Override
