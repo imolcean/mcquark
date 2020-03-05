@@ -3,9 +3,8 @@ package tk.nenua4e.mc.server.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tk.nenua4e.mc.server.controller.request.ChangePasswordRequest;
 import tk.nenua4e.mc.server.dto.UserDto;
-import tk.nenua4e.mc.server.dto.mapper.PostMapper;
-import tk.nenua4e.mc.server.dto.mapper.UserMapper;
 import tk.nenua4e.mc.server.service.UserService;
 
 import java.net.URI;
@@ -55,6 +54,12 @@ public class UserController
     public UserDto updateUser(@PathVariable("id") long id, @RequestBody UserDto user)
     {
         return this.users.updateUser(user.setId(id));
+    }
+
+    @PutMapping("user/{id}/password")
+    public UserDto changePassword(@PathVariable("id") long id, @RequestBody ChangePasswordRequest request)
+    {
+        return this.users.changePassword(id, request.getOldPassword(), request.getNewPassword());
     }
 
     @DeleteMapping("user/{id}")

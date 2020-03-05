@@ -72,11 +72,25 @@ public class UserService
                 .orElseThrow(() -> new UserNotFoundException(dto.getId()));
 
         user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword().map(pass -> this.encoder.encode(pass)).orElse(user.getPassword()));
         user.setEmail(dto.getEmail().orElse(null));
         user.setRoles(dto.getRoles());
 
         return UserMapper.toDto(this.users.save(user));
+    }
+
+    public UserDto changePassword(long id, String oldPassword, String newPassword)
+    {
+        // TODO Validate
+
+        User user = this.users.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        if(!this.encoder.matches(oldPassword, user.getPassword()))
+        {
+            throw new UserUpdateException(UserUpdateException.Reason.NO_RIGHTS);
+        }
+
+        return UserMapper.toDto(this.users.save(user.setPassword(this.encoder.encode(newPassword))));
     }
 
     public void deleteUser(long id)

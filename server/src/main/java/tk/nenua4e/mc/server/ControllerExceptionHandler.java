@@ -29,8 +29,16 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler({UserUpdateException.class})
-    public final ResponseEntity<Object> handleUserUpdateException(Exception ex, WebRequest request)
+    public final ResponseEntity<Object> handleUserUpdateException(UserUpdateException ex, WebRequest request)
     {
-        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(400), request);
+        switch (ex.getReason())
+        {
+            case NO_RIGHTS:
+                return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(403), request);
+            case VALIDATION_FAILED:
+                return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(400), request);
+            default:
+                return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(422), request);
+        }
     }
 }

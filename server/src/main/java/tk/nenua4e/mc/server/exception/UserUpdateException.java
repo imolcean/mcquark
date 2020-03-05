@@ -3,6 +3,7 @@ package tk.nenua4e.mc.server.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@Getter
 public class UserUpdateException extends RuntimeException
 {
     @Getter
@@ -15,8 +16,12 @@ public class UserUpdateException extends RuntimeException
         String value;
     }
 
+    private Reason reason;
+
     public UserUpdateException(Reason reason)
     {
         super(reason.getValue());
+
+        this.reason = reason;
     }
 }
