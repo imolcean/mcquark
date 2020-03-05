@@ -13,7 +13,7 @@ import tk.nenua4e.mc.server.exception.PostUpdateException;
 import tk.nenua4e.mc.server.model.Post;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.PostRepository;
-import tk.nenua4e.mc.server.service.UserService;
+import tk.nenua4e.mc.server.service.AuthService;
 
 import java.net.URI;
 import java.security.Principal;
@@ -22,14 +22,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// TODO Move logic into PostService
+// TODO HATEOAS
+
 @RestController()
 @RequestMapping("api/v1")
 public class NewsController
 {
-    private UserService users;
+    private AuthService users;
     private PostRepository posts;
 
-    public NewsController(UserService users, PostRepository postRepository)
+    public NewsController(AuthService users, PostRepository postRepository)
     {
         this.users = users;
         this.posts = postRepository;
@@ -72,7 +75,7 @@ public class NewsController
 
         return ResponseEntity.created(location).body(PostMapper.toDto(post));
 
-        // TODO Validation (creation using PostService)
+        // TODO Validation
     }
 
     @PutMapping("/post/{id}")
@@ -103,7 +106,7 @@ public class NewsController
 
         return PostMapper.toDto(this.posts.save(post));
 
-        // TODO Validation (update using PostService)
+        // TODO Validation
     }
 
     @DeleteMapping("/post/{id}")
@@ -131,6 +134,4 @@ public class NewsController
 
         return ResponseEntity.noContent().build();
     }
-
-    // TODO HATEOAS
 }

@@ -1,7 +1,5 @@
 package tk.nenua4e.mc.server.service;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.UserDto;
@@ -14,10 +12,8 @@ import tk.nenua4e.mc.server.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO Decouple from UserDetailsService
-
 @Service
-public class UserService implements UserDetailsService
+public class UserService
 {
     private UserRepository users;
 
@@ -27,12 +23,6 @@ public class UserService implements UserDetailsService
     {
         this.users = users;
         this.encoder = encoder;
-    }
-
-    @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException
-    {
-        return this.users.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
     public List<UserDto> getAllUsers()

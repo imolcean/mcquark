@@ -6,19 +6,19 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import tk.nenua4e.mc.server.service.UserService;
+import tk.nenua4e.mc.server.service.AuthService;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
-    UserService userService;
+    AuthService authService;
 
     PasswordEncoder encoder;
 
-    public SecurityConfig(UserService userService, PasswordEncoder encoder)
+    public SecurityConfig(AuthService authService, PasswordEncoder encoder)
     {
-        this.userService = userService;
+        this.authService = authService;
         this.encoder = encoder;
     }
 
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth
-                .userDetailsService(this.userService)
+                .userDetailsService(this.authService)
                 .passwordEncoder(this.encoder);
     }
 }

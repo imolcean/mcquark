@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tk.nenua4e.mc.server.dto.UserDto;
 import tk.nenua4e.mc.server.dto.mapper.UserMapper;
-import tk.nenua4e.mc.server.service.UserService;
+import tk.nenua4e.mc.server.service.AuthService;
 
 import java.security.Principal;
 
@@ -13,16 +13,16 @@ import java.security.Principal;
 @RequestMapping("/api/v1/auth")
 public class AuthController
 {
-    private UserService users;
+    private AuthService auth;
 
-    public AuthController(UserService users)
+    public AuthController(AuthService auth)
     {
-        this.users = users;
+        this.auth = auth;
     }
 
     @PostMapping("/user")
     public UserDto user(Principal principal)
     {
-        return UserMapper.toDto(this.users.loadUserByUsername(principal.getName()));
+        return UserMapper.toDto(this.auth.loadUserByUsername(principal.getName()));
     }
 }
