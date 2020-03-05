@@ -19,12 +19,13 @@ public class DummyDataLoader implements ApplicationRunner
     private UserRepository users;
     private PostRepository posts;
 
-    private PasswordEncoder encoder = new BCryptPasswordEncoder();
+    private PasswordEncoder encoder;
 
     @Autowired
-    public DummyDataLoader(UserRepository userRepository, PostRepository postRepository) {
+    public DummyDataLoader(UserRepository userRepository, PostRepository postRepository, PasswordEncoder encoder) {
         this.users = userRepository;
         this.posts = postRepository;
+        this.encoder = encoder;
     }
 
     public void run(ApplicationArguments args) {

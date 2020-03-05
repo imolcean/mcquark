@@ -22,13 +22,14 @@ import java.util.List;
 @Service
 public class UserService implements UserDetailsService
 {
-    private PasswordEncoder encoder = new BCryptPasswordEncoder(); // TODO Create bean
-
     private UserRepository users;
 
-    public UserService(UserRepository users)
+    private PasswordEncoder encoder;
+
+    public UserService(UserRepository users, PasswordEncoder encoder)
     {
         this.users = users;
+        this.encoder = encoder;
     }
 
     @Override

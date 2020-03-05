@@ -51,5 +51,3 @@ export class AuthenticationService {
     });
   }
 }
-
-// TODO Forget Basic auth credentials after logout
