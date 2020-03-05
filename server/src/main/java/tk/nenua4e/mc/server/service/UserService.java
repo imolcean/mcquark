@@ -2,13 +2,28 @@ package tk.nenua4e.mc.server.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tk.nenua4e.mc.server.dto.UserDto;
+import tk.nenua4e.mc.server.dto.mapper.UserMapper;
+import tk.nenua4e.mc.server.exception.UserNotFoundException;
+import tk.nenua4e.mc.server.exception.UserUpdateException;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.UserRepository;
+import tk.nenua4e.mc.server.utils.RolesUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// TODO Decouple from UserDetailsService
+// TODO Test
 
 @Service
 public class UserService implements UserDetailsService
 {
+    private PasswordEncoder encoder = new BCryptPasswordEncoder(); // TODO Create bean
+
     private UserRepository users;
 
     public UserService(UserRepository users)
@@ -20,5 +35,56 @@ public class UserService implements UserDetailsService
     public User loadUserByUsername(String username) throws UsernameNotFoundException
     {
         return this.users.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
+    }
+
+    public List<UserDto> getAllUsers()
+    {
+        List<UserDto> list = new ArrayList<>();
+
+        for(User user : this.users.findAll())
+        {
+            list.add(UserMapper.toDto(user));
+        }
+
+        return list;
+    }
+
+    public UserDto getUser(long id)
+    {
+        return this.users.findById(id)
+                .map(UserMapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public UserDto createUser(UserDto dto)
+    {
+        User user = new User(
+                dto.getUsername(),
+                dto.getPassword().orElseThrow(() -> new UserUpdateException(UserUpdateException.Reason.VALIDATION_FAILED)),
+                dto.getEmail().orElse(null),
+                RolesUtils.abbreviateStrings(dto.getRoles()));
+
+        return UserMapper.toDto(this.users.save(user));
+    }
+
+    public UserDto updateUser(UserDto dto)
+    {
+        User user = this.users.findById(dto.getId())
+                .orElseThrow(() -> new UserNotFoundException(dto.getId()));
+
+        user.setUsername(dto.getUsername());
+        user.setPassword(dto.getPassword().map(pass -> this.encoder.encode(pass)).orElse(user.getPassword()));
+        user.setEmail(dto.getEmail().orElse(null));
+        user.setRolesAbbr(RolesUtils.abbreviateStrings(dto.getRoles()));
+
+        return UserMapper.toDto(this.users.save(user));
+    }
+
+    public void deleteUser(long id)
+    {
+        User user = this.users.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
+        this.users.delete(user);
     }
 }

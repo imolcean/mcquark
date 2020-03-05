@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UserSaveRequest} from "../dto/dto";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {UserDto} from "../dto/dto";
 
 @Component({
   selector: 'app-user-editor',
@@ -10,13 +10,12 @@ import {Router} from "@angular/router";
 })
 export class UserEditorComponent implements OnInit {
 
-  public request: UserSaveRequest;
+  public user: UserDto;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.request = {
-      name: '',
-      password: '',
-      email: '',
+    this.user = {
+      id: -1,
+      username: '',
       roles: []
     };
   }
@@ -26,7 +25,7 @@ export class UserEditorComponent implements OnInit {
   public submit(event: Event): void {
     event.preventDefault();
 
-    this.http.post<void>('api/v1/users', this.request).subscribe(_response => {
+    this.http.post<void>('api/v1/users', this.user).subscribe(_response => {
       this.router.navigateByUrl('/');
     });
   }

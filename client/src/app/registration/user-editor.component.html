@@ -6,7 +6,7 @@
            type="text"
            name="username"
            placeholder="Username"
-           [(ngModel)]="request.name"
+           [(ngModel)]="user.username"
            required
            minlength="4"
            #username="ngModel">
@@ -17,7 +17,7 @@
            type="password"
            name="password"
            placeholder="Password"
-           [(ngModel)]="request.password"
+           [(ngModel)]="user.password"
            required
            minlength="6"
            #password="ngModel">
@@ -38,16 +38,16 @@
            type="text"
            name="email"
            placeholder="Email"
-           [(ngModel)]="request.email"
+           [(ngModel)]="user.email"
            required
            #email="ngModel">
   </label>
 
   <p-fieldset legend="Roles">
     <!-- TODO: Show if admin -->
-    <p-checkbox name="roles" value="OP" label="Op" [(ngModel)]="request.roles"></p-checkbox>
-    <p-checkbox name="roles" value="EDITOR" label="Editor" [(ngModel)]="request.roles"></p-checkbox>
-    <p-checkbox name="roles" value="ADMIN" label="Admin" [(ngModel)]="request.roles"></p-checkbox>
+    <p-checkbox name="roles" value="OP" label="Op" [(ngModel)]="user.roles"></p-checkbox>
+    <p-checkbox name="roles" value="EDITOR" label="Editor" [(ngModel)]="user.roles"></p-checkbox>
+    <p-checkbox name="roles" value="ADMIN" label="Admin" [(ngModel)]="user.roles"></p-checkbox>
   </p-fieldset>
 
   <button pButton type="submit" class="ui-button-times" label="Submit"></button>

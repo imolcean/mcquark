@@ -10,7 +10,6 @@ import tk.nenua4e.mc.server.dto.PostDto;
 import tk.nenua4e.mc.server.dto.mapper.PostMapper;
 import tk.nenua4e.mc.server.exception.PostNotFoundException;
 import tk.nenua4e.mc.server.exception.PostUpdateException;
-import tk.nenua4e.mc.server.exception.UserNotFoundException;
 import tk.nenua4e.mc.server.model.Post;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.PostRepository;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController()
-@RequestMapping("api/v1/news")
+@RequestMapping("api/v1")
 public class NewsController
 {
     private UserService users;

@@ -38,13 +38,19 @@ public class User implements UserDetails
 
     public User(String username, String password)
     {
-        this(username, password, null);
+        this(username, password, null, null);
     }
 
-    public User(String username, String password, String rolesAbbr)
+    public User(String username, String password, String email)
+    {
+        this(username, password, email, null);
+    }
+
+    public User(String username, String password, String email, String rolesAbbr)
     {
         this.username = username;
         this.password = password;
+        this.email = email;
         this.rolesAbbr = rolesAbbr;
         this.posts = new HashSet<>();
     }
@@ -52,8 +58,6 @@ public class User implements UserDetails
     public List<String> getRoles()
     {
         List<String> list = new ArrayList<>();
-
-        list.add("PLAYER");
 
         if(this.getRolesAbbr() == null)
         {

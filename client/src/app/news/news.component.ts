@@ -18,7 +18,7 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get<PostDto[]>('api/v1/news/feed').subscribe(data => this.posts = data);
+    this.http.get<PostDto[]>('api/v1/feed').subscribe(data => this.posts = data);
   }
 
 }

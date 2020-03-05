@@ -1,6 +1,5 @@
 package tk.nenua4e.mc.server.exception;
 
-// TODO: Remove
 public class UserNotFoundException extends RuntimeException
 {
     public UserNotFoundException(long id)
@@ -8,8 +7,8 @@ public class UserNotFoundException extends RuntimeException
         super(String.format("User with the ID %d not found", id));
     }
 
-    public UserNotFoundException(String nick)
+    public UserNotFoundException(String username)
     {
-        super(String.format("User with the nick %s not found", nick));
+        super(String.format("User with the nick %s not found", username));
     }
 }

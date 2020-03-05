@@ -24,15 +24,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception
     {
         http
+                .csrf().disable()
                 .httpBasic()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/news/feed").permitAll()
+                .antMatchers("/api/v1/feed").permitAll()
                 .antMatchers("/api/**").authenticated()
+                .antMatchers("/swagger-ui.html").hasAuthority("ROLE_ADMIN")
                 .anyRequest().permitAll()
                 .and()
-                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+//                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//                .and()
                 .logout()
                 .logoutUrl("/api/v1/auth/logout")
                 .invalidateHttpSession(true)

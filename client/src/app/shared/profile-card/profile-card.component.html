@@ -25,8 +25,9 @@
       <div class="email">{{ email || 'No email' }}</div>
 
       <ul class="roles">
+        <li><i class="pi pi-desktop"></i> Player</li>
+
         <li *ngFor="let role of roles" [ngSwitch]="role">
-          <i *ngSwitchCase="'PLAYER'" class="pi pi-desktop"></i>
           <i *ngSwitchCase="'OP'" class="pi pi-briefcase"></i>
           <i *ngSwitchCase="'EDITOR'" class="pi pi-palette"></i>
           <i *ngSwitchCase="'ADMIN'" class="pi pi-id-card"></i>
