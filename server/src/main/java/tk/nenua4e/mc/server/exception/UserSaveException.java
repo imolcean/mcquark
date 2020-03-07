@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-public class UserUpdateException extends RuntimeException
+public class UserSaveException extends RuntimeException
 {
     @Getter
     @AllArgsConstructor
@@ -18,7 +18,7 @@ public class UserUpdateException extends RuntimeException
 
     private Reason reason;
 
-    public UserUpdateException(Reason reason)
+    public UserSaveException(Reason reason)
     {
         super(reason.getValue());
 

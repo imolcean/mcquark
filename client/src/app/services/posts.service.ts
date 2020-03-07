@@ -18,7 +18,7 @@ export class PostsService {
         content: "<h1>Post</h1><p>Lorem ipsum...</p>",
         created: new Date(),
         modified: new Date(),
-        authorNick: "Gory26"
+        authorUsername: "Gory26"
       };
 
       posts.push(post);

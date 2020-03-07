@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Data
 @Accessors(chain = true)
@@ -23,5 +24,20 @@ public class PostDto
 
     private LocalDateTime modified;
 
-    private String authorNick;
+    private String authorUsername;
+
+    public Optional<LocalDateTime> getCreated()
+    {
+        return Optional.ofNullable(this.created);
+    }
+
+    public Optional<LocalDateTime> getModified()
+    {
+        return Optional.ofNullable(this.modified);
+    }
+
+    public Optional<String> getAuthorUsername()
+    {
+        return Optional.ofNullable(this.authorUsername);
+    }
 }

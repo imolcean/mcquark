@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.UserDto;
 import tk.nenua4e.mc.server.dto.mapper.UserMapper;
 import tk.nenua4e.mc.server.exception.UserNotFoundException;
-import tk.nenua4e.mc.server.exception.UserUpdateException;
+import tk.nenua4e.mc.server.exception.UserSaveException;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.UserRepository;
 
@@ -57,7 +57,7 @@ public class UserService
 
         User user = new User(
                 dto.getUsername(),
-                dto.getPassword().orElseThrow(() -> new UserUpdateException(UserUpdateException.Reason.VALIDATION_FAILED)),
+                dto.getPassword().orElseThrow(() -> new UserSaveException(UserSaveException.Reason.VALIDATION_FAILED)),
                 dto.getEmail().orElse(null),
                 dto.getRoles());
 
@@ -87,7 +87,7 @@ public class UserService
 
         if(!this.encoder.matches(oldPassword, user.getPassword()))
         {
-            throw new UserUpdateException(UserUpdateException.Reason.NO_RIGHTS);
+            throw new UserSaveException(UserSaveException.Reason.NO_RIGHTS);
         }
 
         return UserMapper.toDto(this.users.save(user.setPassword(this.encoder.encode(newPassword))));

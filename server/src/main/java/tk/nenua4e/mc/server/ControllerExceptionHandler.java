@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import tk.nenua4e.mc.server.exception.PostNotFoundException;
-import tk.nenua4e.mc.server.exception.PostUpdateException;
+import tk.nenua4e.mc.server.exception.PostSaveException;
 import tk.nenua4e.mc.server.exception.UserNotFoundException;
-import tk.nenua4e.mc.server.exception.UserUpdateException;
+import tk.nenua4e.mc.server.exception.UserSaveException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler
@@ -22,14 +22,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler
         return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
-    @ExceptionHandler({PostUpdateException.class})
+    @ExceptionHandler({PostSaveException.class})
     public final ResponseEntity<Object> handlePostUpdateException(Exception ex, WebRequest request)
     {
         return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(403), request);
     }
 
-    @ExceptionHandler({UserUpdateException.class})
-    public final ResponseEntity<Object> handleUserUpdateException(UserUpdateException ex, WebRequest request)
+    @ExceptionHandler({UserSaveException.class})
+    public final ResponseEntity<Object> handleUserUpdateException(UserSaveException ex, WebRequest request)
     {
         switch (ex.getReason())
         {
