@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-03-07 13:55:48.
+// Generated using typescript-generator version 2.20.583 on 2020-03-08 19:37:13.
 
 export interface ChangePasswordRequest {
     oldPassword: string;

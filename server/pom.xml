@@ -36,6 +36,9 @@
                         <pattern>tk.nenua4e.mc.server.controller.request.*</pattern>
                     </classPatterns>
                     <scanSpringApplication>true</scanSpringApplication>
+                    <optionalAnnotations>
+                        <annotation>tk.nenua4e.mc.server.annotation.TsOptional</annotation>
+                    </optionalAnnotations>
                 </configuration>
             </plugin>
 

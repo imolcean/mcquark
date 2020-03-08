@@ -1,6 +1,8 @@
 package tk.nenua4e.mc.server.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tk.nenua4e.mc.server.controller.request.ChangePasswordRequest;
@@ -13,6 +15,7 @@ import java.util.List;
 // TODO HATEOAS
 // TODO Roles
 
+@Slf4j
 @RestController
 @RequestMapping("api/v1")
 public class UserController
@@ -37,7 +40,7 @@ public class UserController
     }
 
     @PostMapping("users")
-    public ResponseEntity<UserDto> createUser(@RequestBody UserDto user)
+    public ResponseEntity<UserDto> createUser(@RequestBody @Validated(UserDto.RegistrationValidationGroup.class) UserDto user)
     {
         UserDto created = this.users.createUser(user);
 
@@ -51,7 +54,7 @@ public class UserController
     }
 
     @PutMapping("user/{id}")
-    public UserDto updateUser(@PathVariable("id") long id, @RequestBody UserDto user)
+    public UserDto updateUser(@PathVariable("id") long id, @RequestBody @Validated(UserDto.UpdateValidationGroup.class) UserDto user)
     {
         return this.users.updateUser(user.setId(id));
     }

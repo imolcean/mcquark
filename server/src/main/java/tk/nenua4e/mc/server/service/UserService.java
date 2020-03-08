@@ -4,8 +4,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.UserDto;
 import tk.nenua4e.mc.server.dto.mapper.UserMapper;
+import tk.nenua4e.mc.server.exception.InsufficientRightsException;
+import tk.nenua4e.mc.server.exception.UserExistsException;
 import tk.nenua4e.mc.server.exception.UserNotFoundException;
-import tk.nenua4e.mc.server.exception.UserSaveException;
 import tk.nenua4e.mc.server.model.User;
 import tk.nenua4e.mc.server.repository.UserRepository;
 
@@ -55,10 +56,15 @@ public class UserService
     {
         // TODO Validate
 
+        if(this.users.findByUsername(dto.getUsername()).isPresent())
+        {
+            throw new UserExistsException(dto.getUsername());
+        }
+
         User user = new User(
                 dto.getUsername(),
-                dto.getPassword().orElseThrow(() -> new UserSaveException(UserSaveException.Reason.VALIDATION_FAILED)),
-                dto.getEmail().orElse(null),
+                dto.getPassword(),
+                dto.getEmail(),
                 dto.getRoles());
 
         return UserMapper.toDto(this.users.save(user));
@@ -72,7 +78,7 @@ public class UserService
                 .orElseThrow(() -> new UserNotFoundException(dto.getId()));
 
         user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail().orElse(null));
+        user.setEmail(dto.getEmail());
         user.setRoles(dto.getRoles());
 
         return UserMapper.toDto(this.users.save(user));
@@ -87,7 +93,7 @@ public class UserService
 
         if(!this.encoder.matches(oldPassword, user.getPassword()))
         {
-            throw new UserSaveException(UserSaveException.Reason.NO_RIGHTS);
+            throw new InsufficientRightsException();
         }
 
         return UserMapper.toDto(this.users.save(user.setPassword(this.encoder.encode(newPassword))));
