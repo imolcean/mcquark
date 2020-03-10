@@ -49,28 +49,18 @@ public class NewsService
 
     public PostDto createPost(PostDto dto)
     {
-        // TODO Validation
-
-        String username = dto.getAuthorUsername()
-                .orElseThrow(() -> new PostSaveException(PostSaveException.Reason.VALIDATION_FAILED));
-
-        User user = this.users.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        User user = this.users.findByUsername(dto.getAuthorUsername())
+                .orElseThrow(() -> new UserNotFoundException(dto.getAuthorUsername()));
 
         Post post = this.posts.save(new Post(dto.getTitle(), dto.getContent(), LocalDateTime.now(), user));
 
         return PostMapper.toDto(post);
     }
 
-    public PostDto updatePost(PostDto dto)
+    public PostDto updatePost(PostDto dto, String usernamePerformingUpdate)
     {
-        // TODO Validation
-
-        String username = dto.getAuthorUsername()
-                .orElseThrow(() -> new PostSaveException(PostSaveException.Reason.VALIDATION_FAILED));
-
-        User user = this.users.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException(username));
+        User user = this.users.findByUsername(usernamePerformingUpdate)
+                .orElseThrow(() -> new UserNotFoundException(usernamePerformingUpdate));
 
         Post post = this.posts.findById(dto.getId())
                 .orElseThrow(() -> new PostNotFoundException(dto.getId()));

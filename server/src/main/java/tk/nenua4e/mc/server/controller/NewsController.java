@@ -2,6 +2,7 @@ package tk.nenua4e.mc.server.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,7 +40,8 @@ public class NewsController
 
     @PostMapping("/feed")
     @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
-    public ResponseEntity<PostDto> createPost(Principal principal, @RequestBody PostDto dto)
+    public ResponseEntity<PostDto> createPost(Principal principal,
+                                              @RequestBody @Validated(PostDto.CreationValidationGroup.class) PostDto dto)
     {
         PostDto created = this.news.createPost(dto.setAuthorUsername(principal.getName()));
 
@@ -54,9 +56,11 @@ public class NewsController
 
     @PutMapping("/post/{id}")
     @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
-    public PostDto updatePost(Principal principal, @PathVariable("id") long id, @RequestBody PostDto dto)
+    public PostDto updatePost(Principal principal,
+                              @PathVariable("id") long id,
+                              @RequestBody @Validated(PostDto.UpdateValidationGroup.class) PostDto dto)
     {
-        return this.news.updatePost(dto.setId(id).setAuthorUsername(principal.getName()));
+        return this.news.updatePost(dto.setId(id), principal.getName());
     }
 
     @DeleteMapping("/post/{id}")

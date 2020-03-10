@@ -60,7 +60,7 @@ public class UserController
     }
 
     @PutMapping("user/{id}/password")
-    public UserDto changePassword(@PathVariable("id") long id, @RequestBody ChangePasswordRequest request)
+    public UserDto changePassword(@PathVariable("id") long id, @RequestBody @Validated ChangePasswordRequest request)
     {
         return this.users.changePassword(id, request.getOldPassword(), request.getNewPassword());
     }
