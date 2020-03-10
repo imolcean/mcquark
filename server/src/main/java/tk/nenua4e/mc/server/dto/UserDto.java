@@ -10,6 +10,7 @@ import tk.nenua4e.mc.server.annotation.TsOptional;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
@@ -25,9 +26,11 @@ public class UserDto
     private Long id;
 
     @NotEmpty(groups = { RegistrationValidationGroup.class, UpdateValidationGroup.class })
+    @Size(min = 3, max = 64, groups = { RegistrationValidationGroup.class, UpdateValidationGroup.class })
     private String username;
 
     @NotEmpty(groups = { RegistrationValidationGroup.class })
+    @Size(min = 6, max = 64, groups = { RegistrationValidationGroup.class })
     @Getter(onMethod_ = { @TsOptional })
     private String password;
 
