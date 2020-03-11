@@ -15,6 +15,8 @@ import tk.nenua4e.mc.server.exception.*;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO Return correct MIME type
+
 @ControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler
 {

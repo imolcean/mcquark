@@ -1,47 +1,104 @@
 <h1>Registration</h1>
 
 <form (submit)="submit($event)">
-  <label>
-    <input pInputText
-           type="text"
-           name="username"
-           placeholder="Username"
-           [(ngModel)]="user.username"
-           required
-           minlength="4"
-           #username="ngModel">
-  </label>
+  <div>
+    <label>
+      <input pInputText
+             type="text"
+             name="username"
+             placeholder="Username"
+             [(ngModel)]="user.username"
+             required
+             minlength="3"
+             maxlength="16"
+             #username="ngModel">
+    </label>
 
-  <label>
-    <input pInputText
-           type="password"
-           name="password"
-           placeholder="Password"
-           [(ngModel)]="user.password"
-           required
-           minlength="6"
-           #password="ngModel">
-  </label>
+    <ng-container *ngIf="username.invalid && (username.dirty || username.touched)">
+      <p *ngIf="username.errors?.required">
+        Name is required.
+      </p>
 
-  <label>
-    <input pInputText
-           type="password"
-           name="password-confirm"
-           placeholder="Password once again"
-           required
-           minlength="6"
-           #passwordConfirm>
-  </label>
+      <p *ngIf="username.errors?.minlength">
+        Name must be at least 4 characters long.
+      </p>
 
-  <label>
-    <input pInputText
-           type="text"
-           name="email"
-           placeholder="Email"
-           [(ngModel)]="user.email"
-           required
-           #email="ngModel">
-  </label>
+      <p *ngIf="username.errors?.maxlength">
+        Name must be not longer than 16 characters long.
+      </p>
+    </ng-container>
+  </div>
+
+  <div>
+    <label>
+      <input pInputText
+             type="password"
+             name="password"
+             placeholder="Password"
+             [(ngModel)]="user.password"
+             required
+             minlength="6"
+             maxlength="64"
+             #password="ngModel">
+    </label>
+
+    <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
+      <p *ngIf="password.errors?.required">
+        Password is required.
+      </p>
+
+      <p *ngIf="password.errors?.minlength">
+        Password must be at least 6 characters long.
+      </p>
+
+      <p *ngIf="password.errors?.maxlength">
+        Password must be not longer than 64 characters long.
+      </p>
+    </ng-container>
+
+    <label>
+      <input pInputText
+             type="password"
+             name="password_confirm"
+             placeholder="Password once again"
+             [(ngModel)]="passwordConfirm"
+             required
+             #password_confirm="ngModel">
+    </label>
+
+    <ng-container *ngIf="(password_confirm.dirty || password_confirm.touched)">
+      <p *ngIf="password_confirm.errors?.required">
+        Password confirmation is required.
+      </p>
+
+      <p *ngIf="password_confirm.value !== user.password">
+        Password confirmation does not match.
+      </p>
+    </ng-container>
+  </div>
+
+  <div>
+    <label>
+      <input pInputText
+             type="text"
+             name="email"
+             placeholder="Email"
+             [(ngModel)]="user.email"
+             required
+             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+             #email="ngModel">
+    </label>
+
+    <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+      <p *ngIf="email.errors?.required">
+        Email is required.
+      </p>
+
+      <p *ngIf="email.errors?.pattern">
+        Email is malformed.
+      </p>
+    </ng-container>
+  </div>
 
   <p-fieldset legend="Roles">
     <!-- TODO: Show if admin -->

@@ -55,6 +55,7 @@ public class UserService
     public UserDto createUser(UserDto dto)
     {
         // TODO Validate
+        // TODO Ignore roles when DTO not sent by an admin
 
         if(this.users.findByUsername(dto.getUsername()).isPresent())
         {
@@ -63,7 +64,7 @@ public class UserService
 
         User user = new User(
                 dto.getUsername(),
-                dto.getPassword(),
+                this.encoder.encode(dto.getPassword()),
                 dto.getEmail(),
                 dto.getRoles());
 
@@ -73,6 +74,7 @@ public class UserService
     public UserDto updateUser(UserDto dto)
     {
         // TODO Validate
+        // TODO Ignore roles when DTO not sent by an admin
 
         User user = this.users.findById(dto.getId())
                 .orElseThrow(() -> new UserNotFoundException(dto.getId()));

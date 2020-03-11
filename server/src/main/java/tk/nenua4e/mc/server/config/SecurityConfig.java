@@ -1,6 +1,7 @@
 package tk.nenua4e.mc.server.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/feed").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/swagger-ui.html").hasAuthority("ROLE_ADMIN")
                 .anyRequest().permitAll()
