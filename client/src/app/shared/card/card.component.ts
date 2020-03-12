@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {PostDto} from "../../dto/dto";
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
 
-  constructor() {}
+  @Input()
+  public post: PostDto;
 
-  ngOnInit(): void {}
+  constructor() {
+    this.post = {
+      id: -1,
+      title: '',
+      content: ''
+    };
+  }
 
 }

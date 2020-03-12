@@ -1,15 +1,14 @@
 <section>
   <header>
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Dec 7, 2017</h5>
+    <h2>{{ post.title }}</h2>
+    <h5>{{ post.created | date: "short" }}</h5>
   </header>
 
   <main>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
+    {{ post.content }}
   </main>
 
   <footer>
-    Published by Ziga
+    Published by {{ post.authorUsername }}
   </footer>
 </section>

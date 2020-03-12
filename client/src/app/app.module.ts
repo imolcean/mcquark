@@ -27,7 +27,7 @@ import {CheckboxModule} from "primeng/checkbox";
 const appRoutes: Routes = [
   { path: '', component: NewsComponent },
   { path: 'project', component: ProjectComponent },
-  { path: 'contact', component: ContactComponent },
+  // { path: 'contact', component: ContactComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'register', component: UserEditorComponent },
   { path: 'admin', component: DashboardComponent },

@@ -1,4 +1,3 @@
-<!--<app-card></app-card>-->
-<!--<app-card></app-card>-->
-
-{{ posts | json }}
+<ng-container *ngFor="let post of posts | async">
+  <app-card [post]="post"></app-card>
+</ng-container>
