@@ -9,6 +9,8 @@ import tk.nenua4e.mc.server.service.AuthService;
 
 import java.security.Principal;
 
+// TODO Deprecated?
+
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController

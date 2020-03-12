@@ -54,9 +54,6 @@ public class UserService
 
     public UserDto createUser(UserDto dto)
     {
-        // TODO Validate
-        // TODO Ignore roles when DTO not sent by an admin
-
         if(this.users.findByUsername(dto.getUsername()).isPresent())
         {
             throw new UserExistsException(dto.getUsername());
@@ -73,9 +70,6 @@ public class UserService
 
     public UserDto updateUser(UserDto dto)
     {
-        // TODO Validate
-        // TODO Ignore roles when DTO not sent by an admin
-
         User user = this.users.findById(dto.getId())
                 .orElseThrow(() -> new UserNotFoundException(dto.getId()));
 
@@ -88,8 +82,6 @@ public class UserService
 
     public UserDto changePassword(long id, String oldPassword, String newPassword)
     {
-        // TODO Validate
-
         User user = this.users.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
