@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "./authentication.service";
 import {Credentials} from "./credentials";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
 import {UserDto} from "../../dto/dto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,33 +11,36 @@ import {UserDto} from "../../dto/dto";
 })
 export class AuthenticationComponent implements OnInit {
 
-  public loginFailed$: Observable<boolean>;
+  public user: UserDto | undefined;
 
-  public username$: Observable<string>;
+  public lastAuthFailed: boolean;
 
-  constructor(public auth: AuthenticationService) {
-    this.loginFailed$ = this.auth.lastAuthFailed$;
-    this.username$ = this.auth.user$.pipe(
-      map((user: UserDto | undefined) => user ? user.username : '')
-    );
-
-    this.auth.authenticate();
+  constructor(private auth: AuthenticationService, private router: Router) {
+    this.lastAuthFailed = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.auth.loadCurrentUser()
+    //   .subscribe(user => this.user = user);
+
+    this.user = this.auth.currentUser;
+  }
 
   public login(event: Event, username: string, password: string): void {
     event.preventDefault();
-
-    if (!username || !password) {
-      return;
-    }
-
-    this.auth.authenticate(new Credentials(username, password));
+    this.auth.authenticate(new Credentials(username, password))
+      .subscribe(user => {
+        this.user = user;
+        this.lastAuthFailed = user === undefined;
+      });
   }
 
   public logout(): void {
-    this.auth.logout();
+    this.auth.logout()
+      .subscribe(user => {
+        this.user = user;
+        this.router.navigateByUrl('/');
+      });
   }
 
 }

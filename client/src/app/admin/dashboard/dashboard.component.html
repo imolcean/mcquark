@@ -6,7 +6,7 @@
       </div>
     </p-toolbar>
 
-    <p-table [value]="posts"
+    <p-table [value]="posts$ | async"
              [paginator]="true"
              [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50, 100]">

@@ -9,6 +9,18 @@
 body {
   background-color: #F5EFEB;
   color: #333;
+
+  & a {
+    color: #8e3535;
+
+    &:hover {
+      color: #333333;
+    }
+
+    &:active {
+      color: #1A1F24;
+    }
+  }
 }
 
 app-root {

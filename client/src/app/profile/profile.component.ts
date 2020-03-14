@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../shared/authentication/authentication.service";
-import {Observable} from "rxjs";
 import {UserDto} from "../dto/dto";
 
 @Component({
@@ -8,12 +7,14 @@ import {UserDto} from "../dto/dto";
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
 
-  public user$: Observable<UserDto | undefined>;
+  public user: UserDto | undefined;
 
-  constructor(private auth: AuthenticationService) {
-    this.user$ = this.auth.user$;
+  constructor(private auth: AuthenticationService) {}
+
+  ngOnInit(): void {
+    this.user = this.auth.currentUser;
   }
 
 }

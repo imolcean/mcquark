@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import {PostDto} from "../dto/dto";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  public loadPosts(): Observable<PostDto[]> {
+    return this.http.get<PostDto[]>('api/v1/feed');
+  }
 
   public getDummyPosts(amount: number): PostDto[] {
     const posts: PostDto[] = [];

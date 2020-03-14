@@ -1,21 +1,26 @@
-import { Component } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
 import {PostDto} from "../dto/dto";
 import {Observable} from "rxjs";
+import {PostsService} from "../services/posts.service";
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent {
+export class NewsComponent implements OnInit {
 
   // TODO: Pagination
 
-  public posts: Observable<PostDto[]>;
+  public posts: Observable<PostDto[]> | undefined;
 
-  constructor(private http: HttpClient) {
-    this.posts = this.http.get<PostDto[]>('api/v1/feed');
+  constructor(private postsService: PostsService) {
+    console.log("NewsComponent constructor called");
+  }
+
+  ngOnInit(): void {
+    console.log("NewsComponent::ngOnInit called");
+    this.posts = this.postsService.loadPosts();
   }
 
 }

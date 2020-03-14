@@ -1,9 +1,9 @@
 <section>
   <h1>My profile</h1>
 
-  <app-profile-card [username]="(user$ | async)?.username"
-                    [email]="(user$ | async)?.email"
-                    [roles]="(user$ | async)?.roles">
+  <app-profile-card [username]="user?.username"
+                    [email]="user?.email"
+                    [roles]="user?.roles">
   </app-profile-card>
 
   <div class="actions">

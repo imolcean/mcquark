@@ -12,6 +12,7 @@ import { ProfileCardComponent } from './profile-card/profile-card.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
+import { RbacShowDirective } from './authorization/rbac-show.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { InputTextModule } from "primeng/inputtext";
     StatusComponent,
     StatisticsComponent,
     ProfileCardComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    RbacShowDirective
   ],
   exports: [
     CardComponent,

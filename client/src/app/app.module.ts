@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -23,16 +23,58 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {XhrInterceptor} from "./xhr-interceptor";
 import { UserEditorComponent } from './registration/user-editor.component';
 import {CheckboxModule} from "primeng/checkbox";
+import {AuthenticationGuard} from "./shared/authentication/authentication.guard";
+import {AuthorizationGuard} from "./shared/authorization/authorization.guard";
+import {AuthenticationService} from "./shared/authentication/authentication.service";
+
+export function authInitFactory(auth: AuthenticationService) {
+  console.log("Initializaer called");
+  return () => new Promise((resolve: any, _reject: any) => {
+    auth.loadCurrentUser()
+      .subscribe(_response => {
+        console.log("Auth info loaded");
+        resolve(true);
+      });
+  });
+}
 
 const appRoutes: Routes = [
-  { path: '', component: NewsComponent },
-  { path: 'project', component: ProjectComponent },
-  // { path: 'contact', component: ContactComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'register', component: UserEditorComponent },
-  { path: 'admin', component: DashboardComponent },
-  { path: 'admin/editor', component: EditorComponent },
-  { path: '**', component: NewsComponent }
+  {
+    path: '',
+    component: NewsComponent
+  },
+  {
+    path: 'project',
+    component: ProjectComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [ AuthenticationGuard ],
+    data: { authenticated: true }
+  },
+  {
+    path: 'register',
+    component: UserEditorComponent,
+    canActivate: [ AuthenticationGuard ],
+    data: { authenticated: false }
+  },
+  {
+    path: 'admin',
+    component: DashboardComponent,
+    canActivate: [ AuthorizationGuard ],
+    data: { roles: ['ADMIN'] }
+  },
+  {
+    path: 'admin/editor',
+    component: EditorComponent,
+    canActivate: [ AuthorizationGuard ],
+    data: { roles: ['ADMIN'] }
+  },
+  {
+    path: '**',
+    component: NewsComponent
+  }
 ];
 
 @NgModule({
@@ -46,7 +88,7 @@ const appRoutes: Routes = [
     ProfileComponent,
     UserEditorComponent
   ],
-    imports: [
+  imports: [
         RouterModule.forRoot(appRoutes),
         BrowserModule,
         NoopAnimationsModule,
@@ -60,8 +102,11 @@ const appRoutes: Routes = [
         TabViewModule,
         FieldsetModule,
         CheckboxModule
-    ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  ],
+  providers: [
+    { provide: APP_INITIALIZER, useFactory: authInitFactory, deps: [AuthenticationService], multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

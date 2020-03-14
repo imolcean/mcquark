@@ -1,25 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {PostsService} from "../../services/posts.service";
 import {PostDto} from "../../dto/dto";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   // TODO: Column width
   // TODO: Show tabs based on user's roles
 
-  public posts: PostDto[];
+  public posts$: Observable<PostDto[]>;
 
   constructor(private postsService: PostsService) {
-    this.posts = [];
-  }
-
-  ngOnInit(): void {
-    this.posts = this.postsService.getDummyPosts(500);
+    this.posts$ = this.postsService.loadPosts();
   }
 
   public onPostCreate(): void

@@ -1,19 +1,20 @@
-<form *ngIf="!(username$ | async) else authenticated" (submit)="login($event, username.value, password.value)">
+<form *ngIf="!user else authenticated" (submit)="login($event, username.value, password.value)">
   <label>
-    <input pInputText #username type="text" placeholder="Username">
+    <input pInputText #username type="text" placeholder="Username" required>
   </label>
 
   <label>
-    <input pInputText #password type="password" placeholder="Password">
+    <input pInputText #password type="password" placeholder="Password" required>
   </label>
 
-  <p class="warning" *ngIf="loginFailed$ | async">Login failed</p>
+  <p class="warning" *ngIf="lastAuthFailed">Login failed</p>
 
   <button pButton type="submit" class="ui-button-times" label="Login"></button>
   <button pButton class="ui-button-times" routerLink="register" label="Register"></button>
 </form>
 
 <ng-template #authenticated>
-  <p>You are logged in as <a routerLink="profile">{{ username$ | async }}</a></p>
+  <p>You are logged in as <a routerLink="profile">{{ user?.username }}</a></p>
+  <p><a routerLink="admin" *rbacShow="['ADMIN']">Admin dashboard</a> </p>
   <p><a href="#" (click)="logout()">Logout</a></p>
 </ng-template>
