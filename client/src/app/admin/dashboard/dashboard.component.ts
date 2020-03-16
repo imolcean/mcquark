@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {PostsService} from "../../services/posts.service";
 import {PostDto} from "../../dto/dto";
 import {Observable} from "rxjs";
+import {flatMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,21 +20,12 @@ export class DashboardComponent {
     this.posts$ = this.postsService.loadPosts();
   }
 
-  public onPostCreate(): void
-  {
-    // TODO
-    console.log("onPostCreate()");
-  }
-
-  public onPostEdit(post: PostDto): void
-  {
-    // TODO
-    console.log(post);
-  }
-
   public onPostDelete(post: PostDto): void
   {
-    this.posts$ = this.postsService.deletePost(post.id);
+    this.posts$ = this.postsService.deletePost(post.id)
+      .pipe(
+        flatMap(_response => this.postsService.loadPosts())
+      );
   }
 
 }

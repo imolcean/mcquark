@@ -1,9 +1,18 @@
 <h1>Post editor</h1>
 
-<label>
-  <input pInputText type="text" placeholder="Title" [(ngModel)]="title">
-</label>
+<form (submit)="submit($event)">
+  <label>
+    <input pInputText
+           type="text"
+           placeholder="Title"
+           name="title"
+           [(ngModel)]="title">
+  </label>
 
-<p-editor [(ngModel)]="content" [style]="{'height':'320px'}"></p-editor>
+  <p-editor name="content"
+            [(ngModel)]="content"
+            [style]="{'height':'320px'}">
+  </p-editor>
 
-<p>{{ content }}</p>
+  <button pButton type="submit" label="Save"></button>
+</form>
