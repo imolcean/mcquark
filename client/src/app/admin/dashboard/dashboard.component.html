@@ -36,6 +36,6 @@
     </p-table>
   </p-tabPanel>
 
-  <p-tabPanel header="Adds" [disabled]="true">
+  <p-tabPanel header="Users" *rbacShow="['ADMIN']" [disabled]="true">
   </p-tabPanel>
 </p-tabView>

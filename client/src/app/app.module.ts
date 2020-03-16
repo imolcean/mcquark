@@ -60,16 +60,16 @@ const appRoutes: Routes = [
     data: { authenticated: false }
   },
   {
-    path: 'admin',
+    path: 'internal',
     component: DashboardComponent,
     canActivate: [ AuthorizationGuard ],
-    data: { roles: ['ADMIN'] }
+    data: { roles: ['ADMIN', 'EDITOR'] }
   },
   {
-    path: 'admin/editor',
+    path: 'internal/editor',
     component: EditorComponent,
     canActivate: [ AuthorizationGuard ],
-    data: { roles: ['ADMIN'] }
+    data: { roles: ['ADMIN', 'EDITOR'] }
   },
   {
     path: '**',

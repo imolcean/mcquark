@@ -25,15 +25,16 @@ import { RbacShowDirective } from './authorization/rbac-show.directive';
     AuthenticationComponent,
     RbacShowDirective
   ],
-  exports: [
-    CardComponent,
-    MenuComponent,
-    IconComponent,
-    StatusComponent,
-    StatisticsComponent,
-    ProfileCardComponent,
-    AuthenticationComponent
-  ],
+    exports: [
+        CardComponent,
+        MenuComponent,
+        IconComponent,
+        StatusComponent,
+        StatisticsComponent,
+        ProfileCardComponent,
+        AuthenticationComponent,
+        RbacShowDirective
+    ],
   imports: [
     CommonModule,
     RouterModule,

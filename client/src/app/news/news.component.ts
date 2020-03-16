@@ -12,7 +12,7 @@ export class NewsComponent implements OnInit {
 
   // TODO: Pagination
 
-  public posts: Observable<PostDto[]> | undefined;
+  public posts$: Observable<PostDto[]> | undefined;
 
   constructor(private postsService: PostsService) {
     console.log("NewsComponent constructor called");
@@ -20,7 +20,7 @@ export class NewsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("NewsComponent::ngOnInit called");
-    this.posts = this.postsService.loadPosts();
+    this.posts$ = this.postsService.loadPosts();
   }
 
 }

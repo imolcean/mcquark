@@ -33,8 +33,7 @@ export class DashboardComponent {
 
   public onPostDelete(post: PostDto): void
   {
-    // TODO
-    console.log(post);
+    this.posts$ = this.postsService.deletePost(post.id);
   }
 
 }

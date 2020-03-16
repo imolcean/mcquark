@@ -15,6 +15,6 @@
 
 <ng-template #authenticated>
   <p>You are logged in as <a routerLink="profile">{{ user?.username }}</a></p>
-  <p><a routerLink="admin" *rbacShow="['ADMIN']">Admin dashboard</a> </p>
+  <p><a routerLink="internal" *rbacShow="['ADMIN']">Admin dashboard</a> </p>
   <p><a href="#" (click)="logout()">Logout</a></p>
 </ng-template>

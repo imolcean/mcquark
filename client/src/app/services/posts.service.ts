@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {PostDto} from "../dto/dto";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {flatMap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +15,11 @@ export class PostsService {
     return this.http.get<PostDto[]>('api/v1/feed');
   }
 
-  public getDummyPosts(amount: number): PostDto[] {
-    const posts: PostDto[] = [];
-
-    for (let i = 0; i < amount; i++) {
-      const post: PostDto = {
-        id: i,
-        title: "Post " + i,
-        content: "<h1>Post</h1><p>Lorem ipsum...</p>",
-        created: new Date(),
-        modified: new Date(),
-        authorUsername: "Gory26"
-      };
-
-      posts.push(post);
-    }
-
-    return posts;
+  public deletePost(id: number): Observable<PostDto[]> {
+    return this.http.delete<void>('api/v1/post/' + id)
+      .pipe(
+        flatMap(_response => this.loadPosts())
+      );
   }
 
 }
