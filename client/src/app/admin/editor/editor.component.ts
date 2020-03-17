@@ -15,11 +15,14 @@ export class EditorComponent implements OnInit {
 
   public content: string;
 
+  public error: boolean;
+
   private updateId: number | undefined;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private postsService: PostsService) {
     this.title = '';
     this.content = '';
+    this.error = false;
   }
 
   ngOnInit(): void {
@@ -43,6 +46,12 @@ export class EditorComponent implements OnInit {
   public submit(event: Event): void {
     event.preventDefault();
 
+    if (this.title === '' || this.content === '') {
+      return;
+    }
+
+    console.log(this.content);
+
     const post: PostDto = {
       id: this.updateId ? this.updateId : -1,
       title: this.title,
@@ -51,11 +60,11 @@ export class EditorComponent implements OnInit {
 
     if (this.updateId) {
       this.postsService.updatePost(post)
-        .subscribe(() => this.router.navigateByUrl('/internal'));
+        .subscribe(() => this.router.navigateByUrl('/internal'),() => this.error = true);
     }
     else {
       this.postsService.createPost(post)
-        .subscribe(() => this.router.navigateByUrl('/internal'));
+        .subscribe(() => this.router.navigateByUrl('/internal'),() => this.error = true);
     }
   }
 

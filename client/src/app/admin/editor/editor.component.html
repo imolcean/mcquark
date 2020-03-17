@@ -15,4 +15,8 @@
   </p-editor>
 
   <button pButton type="submit" label="Save"></button>
+
+  <p *ngIf="error" class="warning">
+    Something went wrong
+  </p>
 </form>

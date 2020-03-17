@@ -4,9 +4,7 @@
     <h5>{{ post.created | date: "short" }}</h5>
   </header>
 
-  <main>
-    {{ post.content }}
-  </main>
+  <main class="card-main-content" [innerHTML]="content"></main>
 
   <footer>
     Published by {{ post.authorUsername }}
