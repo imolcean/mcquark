@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserDto} from "../dto/dto";
+import {ChangePasswordRequest, UserDto} from "../dto/dto";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
@@ -16,6 +16,10 @@ export class UsersService {
 
   public updateCurrentUser(user: UserDto): Observable<UserDto> {
     return this.http.put<UserDto>('api/v1/user/me', user);
+  }
+
+  public changePasswordOfCurrentUser(request: ChangePasswordRequest): Observable<UserDto> {
+    return this.http.put<UserDto>('api/v1/user/me/password', request);
   }
 
 }

@@ -39,7 +39,7 @@ export class EmailEditorComponent implements OnInit {
     event.preventDefault();
 
     this.usersService.updateCurrentUser(this.user!)
-      .subscribe(_response => this.router.navigateByUrl('/profile'));
+      .subscribe(_response => this.router.navigateByUrl('/profile'), () => this.error = true);
   }
 
 }

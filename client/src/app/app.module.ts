@@ -27,6 +27,7 @@ import {AuthenticationGuard} from "./shared/authentication/authentication.guard"
 import {AuthorizationGuard} from "./shared/authorization/authorization.guard";
 import {AuthenticationService} from "./shared/authentication/authentication.service";
 import {EmailEditorComponent} from "./profile/email-editor/email-editor.component";
+import { PasswordEditorComponent } from './profile/password-editor/password-editor.component';
 
 export function authInitFactory(auth: AuthenticationService) {
   console.log("Initializaer called");
@@ -57,6 +58,12 @@ const appRoutes: Routes = [
   {
     path: 'profile/edit/email',
     component: EmailEditorComponent,
+    canActivate: [ AuthenticationGuard ],
+    data: { authenticated: true }
+  },
+  {
+    path: 'profile/edit/password',
+    component: PasswordEditorComponent,
     canActivate: [ AuthenticationGuard ],
     data: { authenticated: true }
   },
@@ -94,7 +101,8 @@ const appRoutes: Routes = [
     EditorComponent,
     ProfileComponent,
     UserEditorComponent,
-    EmailEditorComponent
+    EmailEditorComponent,
+    PasswordEditorComponent
   ],
   imports: [
         RouterModule.forRoot(appRoutes),

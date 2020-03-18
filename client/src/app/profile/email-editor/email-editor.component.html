@@ -1,30 +1,28 @@
 <h1>Edit email</h1>
 
 <form (submit)="submit($event)">
-  <div>
-    <label>
-      <input pInputText
-             type="text"
-             name="email"
-             placeholder="Email"
-             [(ngModel)]="user!.email"
-             required
-             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-             #email="ngModel">
-    </label>
+  <label>
+    <input pInputText
+           type="text"
+           name="email"
+           placeholder="Email"
+           [(ngModel)]="user!.email"
+           required
+           pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+           #email="ngModel">
+  </label>
 
-    <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
-      <p *ngIf="email.errors?.required">
-        Email is required.
-      </p>
+  <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+    <p *ngIf="email.errors?.required">
+      Email is required.
+    </p>
 
-      <p *ngIf="email.errors?.pattern">
-        Email is malformed.
-      </p>
-    </ng-container>
-  </div>
+    <p *ngIf="email.errors?.pattern">
+      Email is malformed.
+    </p>
+  </ng-container>
 
-  <button pButton type="submit" label="Save"></button>
+  <button pButton class="ui-button-times" type="submit" label="Save"></button>
 
   <p *ngIf="error" class="warning">
     Something went wrong
