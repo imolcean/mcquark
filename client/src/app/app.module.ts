@@ -26,6 +26,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {AuthenticationGuard} from "./shared/authentication/authentication.guard";
 import {AuthorizationGuard} from "./shared/authorization/authorization.guard";
 import {AuthenticationService} from "./shared/authentication/authentication.service";
+import {EmailEditorComponent} from "./profile/email-editor/email-editor.component";
 
 export function authInitFactory(auth: AuthenticationService) {
   console.log("Initializaer called");
@@ -50,6 +51,12 @@ const appRoutes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [ AuthenticationGuard ],
+    data: { authenticated: true }
+  },
+  {
+    path: 'profile/edit/email',
+    component: EmailEditorComponent,
     canActivate: [ AuthenticationGuard ],
     data: { authenticated: true }
   },
@@ -86,7 +93,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     EditorComponent,
     ProfileComponent,
-    UserEditorComponent
+    UserEditorComponent,
+    EmailEditorComponent
   ],
   imports: [
         RouterModule.forRoot(appRoutes),

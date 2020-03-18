@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {UserDto} from "../dto/dto";
+import {UsersService} from "../services/users.service";
 
 @Component({
   selector: 'app-user-editor',
@@ -14,7 +14,7 @@ export class UserEditorComponent implements OnInit {
 
   public passwordConfirm: string;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private usersService: UsersService, private router: Router) {
     this.user = {
       id: -1,
       username: '',
@@ -33,7 +33,7 @@ export class UserEditorComponent implements OnInit {
       return;
     }
 
-    this.http.post<void>('api/v1/users', this.user).subscribe(_response => {
+    this.usersService.createUser(this.user).subscribe(_response => {
       this.router.navigateByUrl('/');
     });
   }

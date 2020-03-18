@@ -10,7 +10,10 @@
   <p class="warning" *ngIf="lastAuthFailed">Login failed</p>
 
   <button pButton type="submit" class="ui-button-times" label="Login"></button>
-  <button pButton class="ui-button-times" routerLink="register" label="Register"></button>
+
+  <a routerLink="register">
+    <button pButton class="ui-button-times" label="Register"></button>
+  </a>
 </form>
 
 <ng-template #authenticated>
