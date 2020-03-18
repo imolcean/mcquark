@@ -100,8 +100,7 @@
     </ng-container>
   </div>
 
-  <p-fieldset legend="Roles">
-    <!-- TODO: Show if admin -->
+  <p-fieldset legend="Roles" *rbacShow="['ADMIN']">
     <p-checkbox name="roles" value="OP" label="Op" [(ngModel)]="user.roles"></p-checkbox>
     <p-checkbox name="roles" value="EDITOR" label="Editor" [(ngModel)]="user.roles"></p-checkbox>
     <p-checkbox name="roles" value="ADMIN" label="Admin" [(ngModel)]="user.roles"></p-checkbox>
