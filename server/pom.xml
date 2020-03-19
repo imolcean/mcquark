@@ -12,6 +12,8 @@
     <artifactId>server</artifactId>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>cz.habarta.typescript-generator</groupId>
@@ -66,6 +68,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Makes the JAR fully executable, so it can be started with systemd -->
+                    <executable>true</executable>
+                </configuration>
             </plugin>
         </plugins>
     </build>
