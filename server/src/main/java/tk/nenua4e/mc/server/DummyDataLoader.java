@@ -3,6 +3,7 @@ package tk.nenua4e.mc.server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import tk.nenua4e.mc.server.repository.UserRepository;
 import java.time.LocalDateTime;
 
 @Component
+@Profile("dev")
 public class DummyDataLoader implements ApplicationRunner
 {
     private UserRepository users;

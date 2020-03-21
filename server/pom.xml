@@ -11,6 +11,25 @@
 
     <artifactId>server</artifactId>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>${project.artifactId}</finalName>
 
@@ -58,6 +77,7 @@
                             <resources>
                                 <resource>
                                     <directory>${project.parent.basedir}/client/dist/mcquark/</directory>
+                                    <filtering>true</filtering>
                                 </resource>
                             </resources>
                         </configuration>

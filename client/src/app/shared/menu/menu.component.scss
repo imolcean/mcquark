@@ -4,14 +4,18 @@ ul {
   width: 100%;
   background-color: #1A1F24;
   padding: 5px 0;
-}
 
-li {
-  display: inline-block;
-  font-size: calc(24px + (40 - 24) * ((100vw - 300px) / (1366 - 300)));
-}
+  & li {
+    display: inline-block;
+    font-size: calc(24px + (40 - 24) * ((100vw - 300px) / (1366 - 300)));
 
-a {
-  color: #ddd;
-  text-decoration: none;
+    & a {
+      color: #dddddd;
+      text-decoration: none;
+
+      &:hover, &:active {
+        color: #b5b5b5;
+      }
+    }
+  }
 }
