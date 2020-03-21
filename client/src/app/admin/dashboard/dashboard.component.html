@@ -33,7 +33,7 @@
           <td>{{ post.created | date: 'medium' }}</td>
           <td>{{ post.modified | date: 'medium' }}</td>
           <td>
-            <a routerLink="/internal/editor" [state]="{post: post}">
+            <a [routerLink]="['/internal/editor', post.id]">
               <p-button icon="pi pi-pencil" styleClass="ui-button-info"></p-button>
             </a>
 

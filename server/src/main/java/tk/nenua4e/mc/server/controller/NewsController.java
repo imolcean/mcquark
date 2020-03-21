@@ -32,6 +32,12 @@ public class NewsController
         return this.news.getAllPosts();
     }
 
+    @GetMapping("/feed/meta")
+    public List<PostDto> getFeedMeta()
+    {
+        return this.news.getAllPostsMetaInfo();
+    }
+
     @GetMapping("/post/{id}")
     public PostDto getPost(@PathVariable("id") long id)
     {

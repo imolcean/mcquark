@@ -17,14 +17,14 @@ export class DashboardComponent {
   public posts$: Observable<PostDto[]>;
 
   constructor(private postsService: PostsService) {
-    this.posts$ = this.postsService.loadPosts();
+    this.posts$ = this.postsService.loadPostsMeta();
   }
 
   public onPostDelete(post: PostDto): void
   {
     this.posts$ = this.postsService.deletePost(post.id)
       .pipe(
-        flatMap(_response => this.postsService.loadPosts())
+        flatMap(_response => this.postsService.loadPostsMeta())
       );
   }
 

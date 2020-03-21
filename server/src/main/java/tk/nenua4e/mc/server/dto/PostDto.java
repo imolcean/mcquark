@@ -32,6 +32,7 @@ public class PostDto
     @NotEmpty(groups = { CreationValidationGroup.class, UpdateValidationGroup.class })
     @NotBlank(groups = { CreationValidationGroup.class, UpdateValidationGroup.class })
     @Html(groups = { CreationValidationGroup.class, UpdateValidationGroup.class })
+    @Getter(onMethod_ = { @TsOptional})
     private String content;
 
     @Getter(onMethod_ = { @TsOptional})

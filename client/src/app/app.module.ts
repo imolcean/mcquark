@@ -80,6 +80,12 @@ const appRoutes: Routes = [
     data: { roles: ['ADMIN', 'EDITOR'] }
   },
   {
+    path: 'internal/editor/:postId',
+    component: EditorComponent,
+    canActivate: [ AuthorizationGuard ],
+    data: { roles: ['ADMIN', 'EDITOR'] }
+  },
+  {
     path: 'internal/editor',
     component: EditorComponent,
     canActivate: [ AuthorizationGuard ],

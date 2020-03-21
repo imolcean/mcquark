@@ -3,6 +3,7 @@ package tk.nenua4e.mc.server.service;
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.PostDto;
 import tk.nenua4e.mc.server.dto.mapper.PostMapper;
+import tk.nenua4e.mc.server.dto.mapper.PostMetaInfoMapper;
 import tk.nenua4e.mc.server.exception.PostNotFoundException;
 import tk.nenua4e.mc.server.exception.PostSaveException;
 import tk.nenua4e.mc.server.exception.UserNotFoundException;
@@ -35,6 +36,18 @@ public class NewsService
         for(Post post : this.posts.findAll())
         {
             feed.add(PostMapper.toDto(post));
+        }
+
+        return feed;
+    }
+
+    public List<PostDto> getAllPostsMetaInfo()
+    {
+        List<PostDto> feed = new ArrayList<>();
+
+        for(Post post : this.posts.findAll())
+        {
+            feed.add(PostMetaInfoMapper.toDto(post));
         }
 
         return feed;

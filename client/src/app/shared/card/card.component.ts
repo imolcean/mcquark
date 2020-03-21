@@ -25,7 +25,7 @@ export class CardComponent implements OnChanges {
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
-    this.content = this.sanitizer.bypassSecurityTrustHtml(this.post.content);
+    this.content = this.sanitizer.bypassSecurityTrustHtml(this.post.content!);
   }
 
 }

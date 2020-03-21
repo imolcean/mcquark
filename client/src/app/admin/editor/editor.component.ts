@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {PostsService} from "../../services/posts.service";
 import {PostDto} from "../../dto/dto";
-import {ActivatedRoute, Router} from "@angular/router";
-import {map} from "rxjs/operators";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {flatMap, map, switchMap} from "rxjs/operators";
+import {of} from "rxjs";
 
 @Component({
   selector: 'app-editor',
@@ -26,20 +27,39 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // const id: string | null = this.activatedRoute.snapshot.paramMap.get('id');
+    //
+    // console.log(id);
+    //
+    // if (!id) {
+    //   return;
+    // }
+    //
+    // this.postsService.loadPost(+id)
+    //   .subscribe(post => {
+    //     console.log(post);
+    //
+    //     this.updateId = post.id;
+    //     this.title = post.title;
+    //     this.content = post.content!;
+    //   });
+
     this.activatedRoute.paramMap
       .pipe(
-        map(() => window.history.state)
+        flatMap((params: ParamMap) => {
+          const id: string | null = params.get('postId');
+
+          if (!id) {
+            return of(undefined);
+          }
+
+          return this.postsService.loadPost(+id);
+        })
       )
-      .subscribe(state => {
-        const post: PostDto | undefined = state['post'];
-
-        if (!post) {
-          return;
-        }
-
-        this.updateId = post.id;
-        this.title = post.title;
-        this.content = post.content;
+      .subscribe(post => {
+        this.updateId = post ? post.id : undefined;
+        this.title = post ? post.title : '';
+        this.content = post ? post.content! : '';
       });
   }
 
