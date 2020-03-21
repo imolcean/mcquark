@@ -32,7 +32,7 @@
         <typescript-generator.version>2.20.583</typescript-generator.version>
         <swagger.version>2.9.2</swagger.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
-        <hibernate-validator.version>6.0.11.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
         <maven-exec.version>1.6.0</maven-exec.version>
     </properties>
 
@@ -57,11 +57,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.session</groupId>-->
-        <!--            <artifactId>spring-session-core</artifactId>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -73,12 +68,6 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.postgresql</groupId>-->
-        <!--            <artifactId>postgresql</artifactId>-->
-        <!--            <scope>runtime</scope>-->
-        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.h2database</groupId>
