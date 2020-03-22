@@ -8,8 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { RouterModule, Routes } from "@angular/router";
 import { ProjectComponent } from './project/project.component';
 import { ContactComponent } from './contact/contact.component';
-import {EditorComponent} from "./admin/editor/editor.component";
-import {DashboardComponent} from "./admin/dashboard/dashboard.component";
+import {PostEditorComponent} from "./internal/post-editor/post-editor.component";
+import {DashboardComponent} from "./internal/dashboard/dashboard.component";
 import {EditorModule} from "primeng/editor";
 import {FormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
@@ -21,7 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {FieldsetModule} from "primeng/fieldset";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {XhrInterceptor} from "./xhr-interceptor";
-import { UserEditorComponent } from './registration/user-editor.component';
+import { UserEditorComponent } from './user-editor/user-editor.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {AuthenticationGuard} from "./shared/authentication/authentication.guard";
 import {AuthorizationGuard} from "./shared/authorization/authorization.guard";
@@ -55,6 +55,19 @@ const appRoutes: Routes = [
     canActivate: [ AuthenticationGuard ],
     data: { authenticated: true }
   },
+  // TODO: Profiles of other users visible
+  // {
+  //   path: 'profile/:userId',
+  //   component: ProfileComponent,
+  //   canActivate: [ AuthenticationGuard ],
+  //   data: { authenticated: true }
+  // },
+  {
+    path: 'profile/:userId/edit',
+    component: UserEditorComponent,
+    canActivate: [ AuthorizationGuard ],
+    data: { roles: ['ADMIN'] }
+  },
   {
     path: 'profile/edit/email',
     component: EmailEditorComponent,
@@ -81,13 +94,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'internal/editor/:postId',
-    component: EditorComponent,
+    component: PostEditorComponent,
     canActivate: [ AuthorizationGuard ],
     data: { roles: ['ADMIN', 'EDITOR'] }
   },
   {
     path: 'internal/editor',
-    component: EditorComponent,
+    component: PostEditorComponent,
     canActivate: [ AuthorizationGuard ],
     data: { roles: ['ADMIN', 'EDITOR'] }
   },
@@ -104,26 +117,26 @@ const appRoutes: Routes = [
     ProjectComponent,
     ContactComponent,
     DashboardComponent,
-    EditorComponent,
+    PostEditorComponent,
     ProfileComponent,
     UserEditorComponent,
     EmailEditorComponent,
     PasswordEditorComponent
   ],
   imports: [
-        RouterModule.forRoot(appRoutes),
-        BrowserModule,
-        NoopAnimationsModule,
-        FormsModule,
-        SharedModule,
-        EditorModule,
-        InputTextModule,
-        TableModule,
-        ButtonModule,
-        ToolbarModule,
-        TabViewModule,
-        FieldsetModule,
-        CheckboxModule
+    RouterModule.forRoot(appRoutes),
+    BrowserModule,
+    NoopAnimationsModule,
+    FormsModule,
+    SharedModule,
+    EditorModule,
+    InputTextModule,
+    TableModule,
+    ButtonModule,
+    ToolbarModule,
+    TabViewModule,
+    FieldsetModule,
+    CheckboxModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: authInitFactory, deps: [AuthenticationService], multi: true },

@@ -29,7 +29,7 @@
     </ng-container>
   </div>
 
-  <div>
+  <div *ngIf="user.id < 0">
     <label>
       <input pInputText
              type="password"
@@ -84,7 +84,7 @@
              name="email"
              placeholder="Email"
              [(ngModel)]="user.email"
-             required
+             [required]="user.id < 0"
              pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
              #email="ngModel">
     </label>
@@ -107,4 +107,8 @@
   </p-fieldset>
 
   <button pButton type="submit" class="ui-button-times" label="Submit"></button>
+
+  <p *ngIf="error" class="warning">
+    Something went wrong
+  </p>
 </form>

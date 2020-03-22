@@ -10,12 +10,24 @@ export class UsersService {
 
   constructor(private http: HttpClient) {}
 
+  public loadUsers(): Observable<UserDto[]> {
+    return this.http.get<UserDto[]>('api/v1/users');
+  }
+
+  public loadUser(id: number): Observable<UserDto> {
+    return this.http.get<UserDto>('api/v1/user/' + id);
+  }
+
   public createUser(user: UserDto): Observable<UserDto> {
     return this.http.post<UserDto>('api/v1/users', user);
   }
 
   public updateCurrentUser(user: UserDto): Observable<UserDto> {
     return this.http.put<UserDto>('api/v1/user/me', user);
+  }
+
+  public updateUser(user: UserDto): Observable<UserDto> {
+    return this.http.put<UserDto>('api/v1/user/' + user.id, user);
   }
 
   public changePasswordOfCurrentUser(request: ChangePasswordRequest): Observable<UserDto> {

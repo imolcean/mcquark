@@ -77,6 +77,7 @@ public class UserController
 
         if(!currentUser.getRoles().contains("ADMIN"))
         {
+            dto.setUsername(principal.getName());
             dto.setRoles(Collections.emptyList());
         }
 

@@ -13,6 +13,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { RbacShowDirective } from './authorization/rbac-show.directive';
+import { RolesPipe } from './pipes/roles.pipe';
 
 @NgModule({
   declarations: [
@@ -23,18 +24,20 @@ import { RbacShowDirective } from './authorization/rbac-show.directive';
     StatisticsComponent,
     ProfileCardComponent,
     AuthenticationComponent,
-    RbacShowDirective
+    RbacShowDirective,
+    RolesPipe
   ],
-    exports: [
-        CardComponent,
-        MenuComponent,
-        IconComponent,
-        StatusComponent,
-        StatisticsComponent,
-        ProfileCardComponent,
-        AuthenticationComponent,
-        RbacShowDirective
-    ],
+  exports: [
+    CardComponent,
+    MenuComponent,
+    IconComponent,
+    StatusComponent,
+    StatisticsComponent,
+    ProfileCardComponent,
+    AuthenticationComponent,
+    RbacShowDirective,
+    RolesPipe
+  ],
   imports: [
     CommonModule,
     RouterModule,

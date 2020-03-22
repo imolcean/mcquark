@@ -44,6 +44,33 @@
     </p-table>
   </p-tabPanel>
 
-  <p-tabPanel header="Users" *rbacShow="['ADMIN']" [disabled]="true">
+  <p-tabPanel header="Users" *rbacShow="['ADMIN']">
+    <p-table [value]="users$ | async"
+             [paginator]="true"
+             [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50, 100]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3em;">ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th style="width: 8em;"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roles | roles }}</td>
+          <td>
+            <a [routerLink]="'/profile/' + user.id + '/edit'">
+              <p-button icon="pi pi-pencil" styleClass="ui-button-info"></p-button>
+            </a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </p-tabPanel>
 </p-tabView>

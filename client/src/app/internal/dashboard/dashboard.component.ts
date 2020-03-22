@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import {PostsService} from "../../services/posts.service";
-import {PostDto} from "../../dto/dto";
+import {PostDto, UserDto} from "../../dto/dto";
 import {Observable} from "rxjs";
 import {flatMap} from "rxjs/operators";
+import {UsersService} from "../../services/users.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,12 +13,14 @@ import {flatMap} from "rxjs/operators";
 export class DashboardComponent {
 
   // TODO: Column width
-  // TODO: Show tabs based on user's roles
 
   public posts$: Observable<PostDto[]>;
 
-  constructor(private postsService: PostsService) {
+  public users$: Observable<UserDto[]>;
+
+  constructor(private postsService: PostsService, private usersService: UsersService) {
     this.posts$ = this.postsService.loadPostsMeta();
+    this.users$ = this.usersService.loadUsers();
   }
 
   public onPostDelete(post: PostDto): void

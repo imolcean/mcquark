@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {PostsService} from "../../services/posts.service";
 import {PostDto} from "../../dto/dto";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {flatMap, map, switchMap} from "rxjs/operators";
+import {flatMap} from "rxjs/operators";
 import {of} from "rxjs";
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+  selector: 'app-post-editor',
+  templateUrl: './post-editor.component.html',
+  styleUrls: ['./post-editor.component.scss']
 })
-export class EditorComponent implements OnInit {
+export class PostEditorComponent implements OnInit {
 
   public title: string;
 
@@ -27,23 +27,6 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const id: string | null = this.activatedRoute.snapshot.paramMap.get('id');
-    //
-    // console.log(id);
-    //
-    // if (!id) {
-    //   return;
-    // }
-    //
-    // this.postsService.loadPost(+id)
-    //   .subscribe(post => {
-    //     console.log(post);
-    //
-    //     this.updateId = post.id;
-    //     this.title = post.title;
-    //     this.content = post.content!;
-    //   });
-
     this.activatedRoute.paramMap
       .pipe(
         flatMap((params: ParamMap) => {
