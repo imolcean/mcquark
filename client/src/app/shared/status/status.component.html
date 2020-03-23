@@ -1,15 +1,32 @@
-<h2>Server status</h2>
+<h2>Server</h2>
 
-<div class="status">
-  <h4 *ngIf="status === undefined" class="pending">Checking...</h4>
+<!--<div class="status">-->
+<!--  <h4 *ngIf="status === undefined" class="pending">Checking...</h4>-->
 
-  <ng-container *ngIf="status !== undefined">
-    <h4 *ngIf="status" class="online">Online</h4>
-    <h4 *ngIf="!status" class="offline">Offline</h4>
-  </ng-container>
-</div>
+<!--  <ng-container *ngIf="status !== undefined">-->
+<!--    <h4 *ngIf="status" class="online">Online</h4>-->
+<!--    <h4 *ngIf="!status" class="offline">Offline</h4>-->
+<!--  </ng-container>-->
+<!--</div>-->
 
-<div *ngIf="status" class="conditions">
-  <h5>00:00</h5>
-  <h5>Sunny</h5>
+<!--<div *ngIf="status" class="conditions">-->
+<!--  <h5>00:00</h5>-->
+<!--  <h5>Sunny</h5>-->
+<!--</div>-->
+
+<div class="link">
+  <div class="ui-inputgroup">
+    <label>
+      <input pInputText type="text" value="78.47.221.157" #field readonly>
+    </label>
+    <button pButton
+            class="ui-button-times"
+            icon="pi pi-copy"
+            (click)="copyLink(field)">
+    </button>
+  </div>
+
+  <p class="msg-copied" *ngIf="showMsgCopied">
+    Copied to clipboard
+  </p>
 </div>

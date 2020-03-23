@@ -10,9 +10,6 @@ export class AuthenticationGuard implements CanActivate {
   constructor(private authService: AuthenticationService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
-    console.log(route.data["authenticated"]);
-    console.log(this.authService.currentUser);
-
     const authenticated: boolean = this.authService.currentUser !== undefined;
 
     if (route.data["authenticated"] === authenticated) {

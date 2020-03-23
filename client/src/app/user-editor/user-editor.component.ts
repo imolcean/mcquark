@@ -44,7 +44,6 @@ export class UserEditorComponent implements OnInit {
       )
       .subscribe(user => {
         if (!user) {
-          this.router.navigateByUrl('/internal');
           return;
         }
 

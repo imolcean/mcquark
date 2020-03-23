@@ -14,12 +14,9 @@ export class NewsComponent implements OnInit {
 
   public posts$: Observable<PostDto[]> | undefined;
 
-  constructor(private postsService: PostsService) {
-    console.log("NewsComponent constructor called");
-  }
+  constructor(private postsService: PostsService) {}
 
   ngOnInit(): void {
-    console.log("NewsComponent::ngOnInit called");
     this.posts$ = this.postsService.loadPosts();
   }
 
