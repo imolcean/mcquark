@@ -28,6 +28,7 @@ import {AuthorizationGuard} from "./shared/authorization/authorization.guard";
 import {AuthenticationService} from "./shared/authentication/authentication.service";
 import {EmailEditorComponent} from "./profile/email-editor/email-editor.component";
 import { PasswordEditorComponent } from './profile/password-editor/password-editor.component';
+import {ProfileCardComponent} from "./profile/profile-card/profile-card.component";
 
 export function authInitFactory(auth: AuthenticationService) {
   console.log("Initializaer called");
@@ -119,6 +120,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     PostEditorComponent,
     ProfileComponent,
+    ProfileCardComponent,
     UserEditorComponent,
     EmailEditorComponent,
     PasswordEditorComponent

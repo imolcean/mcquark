@@ -1,0 +1,306 @@
+span.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  image-rendering: pixelated;
+
+  &.s {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.m {
+    width: 32px;
+    height: 32px;
+  }
+
+  &.l {
+    width: 48px;
+    height: 48px;
+  }
+
+  &.xl {
+    width: 64px;
+    height: 64px;
+  }
+
+  &.xxl {
+    width: 80px;
+    height: 80px;
+  }
+
+  &.xxxl {
+    width: 96px;
+    height: 96px;
+  }
+
+  &.apple {
+    background-image: url("assets/items/apple.png");
+  }
+
+  &.barrier {
+    background-image: url("assets/items/barrier.png");
+  }
+
+  &.beef {
+    background-image: url("assets/items/beef.png");
+  }
+
+  &.beetroot {
+    background-image: url("assets/items/beetroot.png");
+  }
+
+  &.bell {
+    background-image: url("assets/items/bell.png");
+  }
+
+  &.book {
+    background-image: url("assets/items/book.png");
+  }
+
+  &.bow {
+    background-image: url("assets/items/bow.png");
+  }
+
+  &.bread {
+    background-image: url("assets/items/bread.png");
+  }
+
+  &.bucket {
+    background-image: url("assets/items/bucket.png");
+  }
+
+  &.cake {
+    background-image: url("assets/items/cake.png");
+  }
+
+  &.carrot {
+    background-image: url("assets/items/carrot.png");
+  }
+
+  &.chicken {
+    background-image: url("assets/items/chicken.png");
+  }
+
+  &.coal {
+    background-image: url("assets/items/coal.png");
+  }
+
+  &.cod {
+    background-image: url("assets/items/cod.png");
+  }
+
+  &.cooked_beef {
+    background-image: url("assets/items/cooked_beef.png");
+  }
+
+  &.cooked_chicken {
+    background-image: url("assets/items/cooked_chicken.png");
+  }
+
+  &.cooked_cod {
+    background-image: url("assets/items/cooked_cod.png");
+  }
+
+  &.cooked_mutton {
+    background-image: url("assets/items/cooked_mutton.png");
+  }
+
+  &.cooked_porkchop {
+    background-image: url("assets/items/cooked_porkchop.png");
+  }
+
+  &.cooked_rabbit {
+    background-image: url("assets/items/cooked_rabbit.png");
+  }
+
+  &.cooked_salmon {
+    background-image: url("assets/items/cooked_salmon.png");
+  }
+
+  &.cookie {
+    background-image: url("assets/items/cookie.png");
+  }
+
+  &.crossbow_arrow {
+    background-image: url("assets/items/crossbow_arrow.png");
+  }
+
+  &.crossbow_standby {
+    background-image: url("assets/items/crossbow_standby.png");
+  }
+
+  &.diamond {
+    background-image: url("assets/items/diamond.png");
+  }
+
+  &.egg {
+    background-image: url("assets/items/egg.png");
+  }
+
+  &.emerald {
+    background-image: url("assets/items/emerald.png");
+  }
+
+  &.enchanted_book {
+    background-image: url("assets/items/enchanted_book.png");
+  }
+
+  &.glistering_melon_slice {
+    background-image: url("assets/items/glistering_melon_slice.png");
+  }
+
+  &.gold_ingot {
+    background-image: url("assets/items/gold_ingot.png");
+  }
+
+  &.golden_apple {
+    background-image: url("assets/items/golden_apple.png");
+  }
+
+  &.golden_carrot {
+    background-image: url("assets/items/golden_carrot.png");
+  }
+
+  &.iron_axe {
+    background-image: url("assets/items/iron_axe.png");
+  }
+
+  &.iron_hoe {
+    background-image: url("assets/items/iron_hoe.png");
+  }
+
+  &.iron_ingot {
+    background-image: url("assets/items/iron_ingot.png");
+  }
+
+  &.iron_pickaxe {
+    background-image: url("assets/items/iron_pickaxe.png");
+  }
+
+  &.iron_shovel {
+    background-image: url("assets/items/iron_shovel.png");
+  }
+
+  &.iron_sword {
+    background-image: url("assets/items/iron_sword.png");
+  }
+
+  &.lantern {
+    background-image: url("assets/items/lantern.png");
+  }
+
+  &.leather {
+    background-image: url("assets/items/leather.png");
+  }
+
+  &.melon_slice {
+    background-image: url("assets/items/melon_slice.png");
+  }
+
+  &.milk_bucket {
+    background-image: url("assets/items/milk_bucket.png");
+  }
+
+  &.minecart {
+    background-image: url("assets/items/minecart.png");
+  }
+
+  &.mutton {
+    background-image: url("assets/items/mutton.png");
+  }
+
+  &.name_tag {
+    background-image: url("assets/items/name_tag.png");
+  }
+
+  &.oak_boat {
+    background-image: url("assets/items/oak_boat.png");
+  }
+
+  &.oak_sign {
+    background-image: url("assets/items/oak_sign.png");
+  }
+
+  &.painting {
+    background-image: url("assets/items/painting.png");
+  }
+
+  &.porkchop {
+    background-image: url("assets/items/porkchop.png");
+  }
+
+  &.potato {
+    background-image: url("assets/items/potato.png");
+  }
+
+  &.pufferfish {
+    background-image: url("assets/items/pufferfish.png");
+  }
+
+  &.pumpkin_pie {
+    background-image: url("assets/items/pumpkin_pie.png");
+  }
+
+  &.rabbit {
+    background-image: url("assets/items/rabbit.png");
+  }
+
+  &.rabbit_foot {
+    background-image: url("assets/items/rabbit_foot.png");
+  }
+
+  &.rabbit_hide {
+    background-image: url("assets/items/rabbit_hide.png");
+  }
+
+  &.redstone {
+    background-image: url("assets/items/redstone.png");
+  }
+
+  &.rotten_flesh {
+    background-image: url("assets/items/rotten_flesh.png");
+  }
+
+  &.saddle {
+    background-image: url("assets/items/saddle.png");
+  }
+
+  &.salmon {
+    background-image: url("assets/items/salmon.png");
+  }
+
+  &.slime_ball {
+    background-image: url("assets/items/slime_ball.png");
+  }
+
+  &.stick {
+    background-image: url("assets/items/stick.png");
+  }
+
+  &.sweet_berries {
+    background-image: url("assets/items/sweet_berries.png");
+  }
+
+  &.trident {
+    background-image: url("assets/items/trident.png");
+  }
+
+  &.tropical_fish {
+    background-image: url("assets/items/tropical_fish.png");
+  }
+
+  &.water_bucket {
+    background-image: url("assets/items/water_bucket.png");
+  }
+
+  &.wheat {
+    background-image: url("assets/items/wheat.png");
+  }
+
+  &.writable_book {
+    background-image: url("assets/items/writable_book.png");
+  }
+}
