@@ -58,7 +58,7 @@ Afterwards, you start the service
 
 2.
 
-Create a file `/etc/nginx/sites-available/zigas.cf` with the following content:
+Enable reverse-proxy with Nginx. Create a file `/etc/nginx/sites-available/zigas.cf` with the following content:
 
 ```
 server {
@@ -83,3 +83,16 @@ and create a symlink
 Finally, restart Nginx
 
 `systemctl restart nginx`
+
+3.
+
+Configure the firewall.
+
+```bash
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow ssh
+ufw allow http
+ufw allow https
+ufw enable
+```
