@@ -1,3 +1,9 @@
-<ng-container *ngFor="let post of posts$ | async">
-  <app-card [post]="post"></app-card>
+<ng-container *ngIf="posts$ | async as posts; else loading">
+  <ng-container *ngFor="let post of posts">
+    <app-card [post]="post"></app-card>
+  </ng-container>
 </ng-container>
+
+<ng-template #loading>
+  Loading...
+</ng-template>
