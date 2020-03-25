@@ -19,6 +19,9 @@ public class Post
     private String title;
 
     @Column(columnDefinition = "text")
+    private String preview;
+
+    @Column(columnDefinition = "text")
     private String content;
 
     private LocalDateTime created;
@@ -31,14 +34,15 @@ public class Post
 
     protected Post() {}
 
-    public Post(String title, String content, LocalDateTime created, User author)
+    public Post(String title, String preview, String content, LocalDateTime created, User author)
     {
-        this(title, content, created, created, author);
+        this(title, preview, content, created, created, author);
     }
 
-    public Post(String title, String content, LocalDateTime created, LocalDateTime modified, User author)
+    public Post(String title, String preview, String content, LocalDateTime created, LocalDateTime modified, User author)
     {
         this.title = title;
+        this.preview = preview;
         this.content = content;
         this.created = created;
         this.modified = modified;
@@ -47,7 +51,7 @@ public class Post
 
     public String toString()
     {
-        return String.format("Post(title=%s, content=%s, dateTime=%s, author=%s)",
-                this.title, this.content, this.created, this.author.getUsername());
+        return String.format("Post(title=%s, created=%s, author=%s)",
+                this.title, this.created, this.author.getUsername());
     }
 }

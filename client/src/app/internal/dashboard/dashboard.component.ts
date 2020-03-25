@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {PostsService} from "../../services/posts.service";
-import {PostDto, UserDto} from "../../dto/dto";
+import {PostDto, PostMetaDto, UserDto} from "../../dto/dto";
 import {Observable} from "rxjs";
 import {flatMap} from "rxjs/operators";
 import {UsersService} from "../../services/users.service";
@@ -12,9 +12,7 @@ import {UsersService} from "../../services/users.service";
 })
 export class DashboardComponent {
 
-  // TODO: Column width
-
-  public posts$: Observable<PostDto[]>;
+  public posts$: Observable<PostMetaDto[]>;
 
   public users$: Observable<UserDto[]>;
 

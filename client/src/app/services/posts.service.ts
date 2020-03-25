@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {PostDto} from "../dto/dto";
+import {PostDto, PostMetaDto} from "../dto/dto";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
@@ -14,8 +14,8 @@ export class PostsService {
     return this.http.get<PostDto[]>('api/v1/feed');
   }
 
-  public loadPostsMeta(): Observable<PostDto[]> {
-    return this.http.get<PostDto[]>('api/v1/feed/meta');
+  public loadPostsMeta(): Observable<PostMetaDto[]> {
+    return this.http.get<PostMetaDto[]>('api/v1/feed/meta');
   }
 
   public loadPost(id: number): Observable<PostDto> {

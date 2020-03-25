@@ -10,6 +10,7 @@ public class PostMapper
         return new PostDto(
                 post.getId(),
                 post.getTitle(),
+                post.getPreview(),
                 post.getContent(),
                 post.getCreated(),
                 post.getModified(),

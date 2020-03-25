@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tk.nenua4e.mc.server.dto.PostDto;
+import tk.nenua4e.mc.server.dto.PostMetaDto;
 import tk.nenua4e.mc.server.service.NewsService;
 
 import java.net.URI;
@@ -33,9 +34,9 @@ public class NewsController
     }
 
     @GetMapping("/feed/meta")
-    public List<PostDto> getFeedMeta()
+    public List<PostMetaDto> getFeedMeta()
     {
-        return this.news.getAllPostsMetaInfo();
+        return this.news.getAllPostsMeta();
     }
 
     @GetMapping("/post/{id}")

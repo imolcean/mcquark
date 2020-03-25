@@ -36,6 +36,6 @@ public class HtmlValidator implements ConstraintValidator<Html, String>
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context)
     {
-        return Jsoup.isValid(value, this.whitelist);
+        return value == null || Jsoup.isValid(value, this.whitelist);
     }
 }

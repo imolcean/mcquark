@@ -12,18 +12,15 @@ import {of} from "rxjs";
 })
 export class PostEditorComponent implements OnInit {
 
-  public title: string;
-
-  public content: string;
+  public post: PostDto | undefined;
 
   public error: boolean;
 
-  private updateId: number | undefined;
+  public savingInProgress: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private postsService: PostsService) {
-    this.title = '';
-    this.content = '';
     this.error = false;
+    this.savingInProgress = false;
   }
 
   ngOnInit(): void {
@@ -33,42 +30,58 @@ export class PostEditorComponent implements OnInit {
           const id: string | null = params.get('postId');
 
           if (!id) {
-            return of(undefined);
+            const newPost: PostDto = {
+              id: -1,
+              title: '',
+              preview: ''
+            };
+
+            return of(newPost);
           }
 
           return this.postsService.loadPost(+id);
         })
       )
-      .subscribe(post => {
-        this.updateId = post ? post.id : undefined;
-        this.title = post ? post.title : '';
-        this.content = post ? post.content! : '';
-      });
+      .subscribe(post => this.post = post);
   }
 
   public submit(event: Event): void {
     event.preventDefault();
 
-    if (this.title === '' || this.content === '') {
+    if (!this.post) {
       return;
     }
 
-    console.log(this.content);
+    if (this.isEmpty(this.post.title) || this.isEmpty(this.post.preview)) {
+      return;
+    }
 
-    const post: PostDto = {
-      id: this.updateId ? this.updateId : -1,
-      title: this.title,
-      content: this.content
-    };
+    console.debug(this.post);
 
-    if (this.updateId) {
-      this.postsService.updatePost(post)
-        .subscribe(() => this.router.navigateByUrl('/internal'),() => this.error = true);
+    this.savingInProgress = true;
+
+    if (this.post.id < 0) {
+      this.postsService.createPost(this.post)
+        .subscribe(
+          () => this.router.navigateByUrl('/internal'),
+          () => {
+            this.savingInProgress = false;
+            this.error = true;
+          });
     }
     else {
-      this.postsService.createPost(post)
-        .subscribe(() => this.router.navigateByUrl('/internal'),() => this.error = true);
+      this.postsService.updatePost(this.post)
+        .subscribe(
+          () => this.router.navigateByUrl('/internal'),
+          () => {
+            this.savingInProgress = false;
+            this.error = true;
+          });
     }
+  }
+
+  private isEmpty(str: string): boolean {
+    return str === null || str === undefined || str === '';
   }
 
 }

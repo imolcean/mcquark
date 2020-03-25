@@ -2,6 +2,7 @@ package tk.nenua4e.mc.server.service;
 
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.PostDto;
+import tk.nenua4e.mc.server.dto.PostMetaDto;
 import tk.nenua4e.mc.server.dto.mapper.PostMapper;
 import tk.nenua4e.mc.server.dto.mapper.PostMetaInfoMapper;
 import tk.nenua4e.mc.server.exception.PostNotFoundException;
@@ -29,6 +30,7 @@ public class NewsService
         this.users = users;
     }
 
+    // TODO: Sort by date
     public List<PostDto> getAllPosts()
     {
         List<PostDto> feed = new ArrayList<>();
@@ -41,9 +43,9 @@ public class NewsService
         return feed;
     }
 
-    public List<PostDto> getAllPostsMetaInfo()
+    public List<PostMetaDto> getAllPostsMeta()
     {
-        List<PostDto> feed = new ArrayList<>();
+        List<PostMetaDto> feed = new ArrayList<>();
 
         for(Post post : this.posts.findAll())
         {
@@ -65,7 +67,7 @@ public class NewsService
         User user = this.users.findByUsername(dto.getAuthorUsername())
                 .orElseThrow(() -> new UserNotFoundException(dto.getAuthorUsername()));
 
-        Post post = this.posts.save(new Post(dto.getTitle(), dto.getContent(), LocalDateTime.now(), user));
+        Post post = this.posts.save(new Post(dto.getTitle(), dto.getPreview(), dto.getContent(), LocalDateTime.now(), user));
 
         return PostMapper.toDto(post);
     }
@@ -86,6 +88,7 @@ public class NewsService
 
         post
                 .setTitle(dto.getTitle())
+                .setPreview(dto.getPreview())
                 .setContent(dto.getContent())
                 .setModified(LocalDateTime.now());
 

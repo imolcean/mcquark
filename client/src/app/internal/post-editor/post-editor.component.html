@@ -1,22 +1,43 @@
 <h1>Post editor</h1>
 
-<form (submit)="submit($event)">
+<form *ngIf="post; else loading" (submit)="submit($event)">
   <label>
     <input pInputText
            type="text"
            placeholder="Title"
            name="title"
-           [(ngModel)]="title">
+           [(ngModel)]="post!.title">
   </label>
 
-  <p-editor name="content"
-            [(ngModel)]="content"
-            [style]="{'height':'320px'}">
+  <p-editor name="preview"
+            [(ngModel)]="post!.preview"
+            [style]="{'height': '120px'}">
   </p-editor>
 
-  <button pButton type="submit" label="Save"></button>
+  <p-editor name="content"
+            [(ngModel)]="post!.content"
+            [style]="{'height': '320px'}">
+  </p-editor>
+
+  <button pButton
+          type="submit"
+          label="Save"
+          *ngIf="!savingInProgress; else saving">
+  </button>
+
+  <ng-template #saving>
+    <button pButton
+            disabled
+            type="submit"
+            label="Saving...">
+    </button>
+  </ng-template>
 
   <p *ngIf="error" class="warning">
     Something went wrong
   </p>
 </form>
+
+<ng-template #loading>
+  Loading...
+</ng-template>

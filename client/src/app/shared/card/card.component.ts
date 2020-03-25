@@ -18,6 +18,7 @@ export class CardComponent implements OnChanges {
     this.post = {
       id: -1,
       title: '',
+      preview: '',
       content: ''
     };
 
