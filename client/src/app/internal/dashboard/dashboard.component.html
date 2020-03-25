@@ -30,8 +30,8 @@
           <td>{{ post.id }}</td>
           <td>{{ post.title }}</td>
           <td>{{ post.authorUsername }}</td>
-          <td>{{ post.created | date: 'medium' }}</td>
-          <td>{{ post.modified | date: 'medium' }}</td>
+          <td>{{ post.created | date: "d/M/yy, H:mm:ss" }}</td>
+          <td>{{ post.modified | date: "d/M/yy, H:mm:ss" }}</td>
           <td>
             <a [routerLink]="['/internal/editor', post.id]">
               <p-button icon="pi pi-pencil" styleClass="ui-button-info"></p-button>

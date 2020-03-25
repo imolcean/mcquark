@@ -1,0 +1,28 @@
+header {
+  & h1 {
+    font-weight: 600;
+  }
+
+  & h5 {
+    font-weight: 400;
+    color: #696969;
+  }
+}
+
+:host ::ng-deep main.post-content, :host ::ng-deep section.post-preview {
+  margin: 10px 0;
+
+  & img {
+    max-width: 100%;
+  }
+
+  & ul, ol {
+    list-style-position: inside;
+  }
+}
+
+footer {
+  border-top: 1px solid #dbdbdb;
+  font-size: smaller;
+  color: #aaaaaa;
+}

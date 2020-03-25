@@ -33,6 +33,12 @@ public class NewsController
         return this.news.getAllPosts();
     }
 
+    @GetMapping("/feed/preview")
+    public List<PostDto> getFeedPreview()
+    {
+        return this.news.getAllPostsPreview();
+    }
+
     @GetMapping("/feed/meta")
     public List<PostMetaDto> getFeedMeta()
     {

@@ -17,7 +17,7 @@ export class NewsComponent implements OnInit {
   constructor(private postsService: PostsService) {}
 
   ngOnInit(): void {
-    this.posts$ = this.postsService.loadPosts();
+    this.posts$ = this.postsService.loadPostsPreview();
   }
 
 }

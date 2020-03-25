@@ -18,15 +18,14 @@ export class CardComponent implements OnChanges {
     this.post = {
       id: -1,
       title: '',
-      preview: '',
-      content: ''
+      preview: ''
     };
 
     this.content = {};
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
-    this.content = this.sanitizer.bypassSecurityTrustHtml(this.post.content!);
+    this.content = this.sanitizer.bypassSecurityTrustHtml(this.post.preview);
   }
 
 }

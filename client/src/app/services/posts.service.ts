@@ -14,6 +14,10 @@ export class PostsService {
     return this.http.get<PostDto[]>('api/v1/feed');
   }
 
+  public loadPostsPreview(): Observable<PostDto[]> {
+    return this.http.get<PostDto[]>('api/v1/feed/preview');
+  }
+
   public loadPostsMeta(): Observable<PostMetaDto[]> {
     return this.http.get<PostMetaDto[]>('api/v1/feed/meta');
   }

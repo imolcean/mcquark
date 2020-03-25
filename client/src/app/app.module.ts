@@ -29,6 +29,7 @@ import {AuthenticationService} from "./shared/authentication/authentication.serv
 import {EmailEditorComponent} from "./profile/email-editor/email-editor.component";
 import { PasswordEditorComponent } from './profile/password-editor/password-editor.component';
 import {ProfileCardComponent} from "./profile/profile-card/profile-card.component";
+import { PostComponent } from './news/post/post.component';
 
 export function authInitFactory(auth: AuthenticationService) {
   console.log("Initializaer called");
@@ -45,6 +46,14 @@ const appRoutes: Routes = [
   {
     path: '',
     component: NewsComponent
+  },
+  {
+    path: 'news',
+    component: NewsComponent
+  },
+  {
+    path: 'news/:postId',
+    component: PostComponent
   },
   {
     path: 'project',
@@ -123,7 +132,8 @@ const appRoutes: Routes = [
     ProfileCardComponent,
     UserEditorComponent,
     EmailEditorComponent,
-    PasswordEditorComponent
+    PasswordEditorComponent,
+    PostComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

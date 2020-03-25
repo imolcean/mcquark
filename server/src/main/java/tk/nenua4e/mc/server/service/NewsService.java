@@ -1,10 +1,12 @@
 package tk.nenua4e.mc.server.service;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.PostDto;
 import tk.nenua4e.mc.server.dto.PostMetaDto;
 import tk.nenua4e.mc.server.dto.mapper.PostMapper;
 import tk.nenua4e.mc.server.dto.mapper.PostMetaInfoMapper;
+import tk.nenua4e.mc.server.dto.mapper.PostPreviewMapper;
 import tk.nenua4e.mc.server.exception.PostNotFoundException;
 import tk.nenua4e.mc.server.exception.PostSaveException;
 import tk.nenua4e.mc.server.exception.UserNotFoundException;
@@ -30,14 +32,25 @@ public class NewsService
         this.users = users;
     }
 
-    // TODO: Sort by date
     public List<PostDto> getAllPosts()
     {
         List<PostDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findAll())
+        for(Post post : this.posts.findAllByOrderByCreatedDesc())
         {
             feed.add(PostMapper.toDto(post));
+        }
+
+        return feed;
+    }
+
+    public List<PostDto> getAllPostsPreview()
+    {
+        List<PostDto> feed = new ArrayList<>();
+
+        for(Post post : this.posts.findAllByOrderByCreatedDesc())
+        {
+            feed.add(PostPreviewMapper.toDto(post));
         }
 
         return feed;

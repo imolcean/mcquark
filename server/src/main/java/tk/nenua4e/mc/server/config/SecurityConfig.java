@@ -32,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/feed").permitAll()
+                .antMatchers("/api/v1/feed/preview").permitAll()
+                .antMatchers("/api/v1/post/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
                 .antMatchers("/api/**").authenticated()
 //                .antMatchers("/swagger-ui.html").hasAuthority("ROLE_ADMIN")
