@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 2.20.583 on 2020-03-25 11:10:56.
+// Generated using typescript-generator version 2.20.583 on 2020-03-27 11:22:31.
 
 export interface ChangePasswordRequest {
     oldPassword: string;
@@ -14,6 +14,7 @@ export interface PostDto {
     content?: string;
     created?: Date;
     modified?: Date;
+    published?: Date;
     authorUsername?: string;
 }
 
@@ -22,6 +23,7 @@ export interface PostMetaDto {
     title: string;
     created: Date;
     modified: Date;
+    published: Date;
     authorUsername: string;
 }
 

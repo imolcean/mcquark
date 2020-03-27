@@ -12,6 +12,7 @@ public class PostMetaInfoMapper
                 post.getTitle(),
                 post.getCreated(),
                 post.getModified(),
+                post.getPublished(),
                 post.getAuthor().getUsername());
     }
 }

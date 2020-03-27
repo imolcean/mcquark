@@ -27,6 +27,8 @@ public class PostMetaDto
 
     private LocalDateTime modified;
 
+    private LocalDateTime published;
+
     private String authorUsername;
 }
 

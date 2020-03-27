@@ -14,6 +14,7 @@ public class PostPreviewMapper
                 null,
                 post.getCreated(),
                 post.getModified(),
+                post.getPublished(),
                 post.getAuthor().getUsername());
     }
 }

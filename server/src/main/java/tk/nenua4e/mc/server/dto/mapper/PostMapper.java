@@ -14,6 +14,7 @@ public class PostMapper
                 post.getContent(),
                 post.getCreated(),
                 post.getModified(),
+                post.getPublished(),
                 post.getAuthor().getUsername());
     }
 }

@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface PostRepository extends CrudRepository<Post, Long>
 {
-    List<Post> findAllByOrderByCreatedDesc();
+    List<Post> findByPublishedIsNullOrderByCreated();
+
+    List<Post> findByPublishedIsNotNullOrderByPublished();
 
     Optional<Post> findById(long id);
 

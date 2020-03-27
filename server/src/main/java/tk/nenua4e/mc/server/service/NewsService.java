@@ -1,6 +1,5 @@
 package tk.nenua4e.mc.server.service;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import tk.nenua4e.mc.server.dto.PostDto;
 import tk.nenua4e.mc.server.dto.PostMetaDto;
@@ -32,11 +31,11 @@ public class NewsService
         this.users = users;
     }
 
-    public List<PostDto> getAllPosts()
+    public List<PostDto> getPublishedPosts()
     {
         List<PostDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findAllByOrderByCreatedDesc())
+        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublished())
         {
             feed.add(PostMapper.toDto(post));
         }
@@ -44,11 +43,11 @@ public class NewsService
         return feed;
     }
 
-    public List<PostDto> getAllPostsPreview()
+    public List<PostDto> getPublishedPostsPreview()
     {
         List<PostDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findAllByOrderByCreatedDesc())
+        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublished())
         {
             feed.add(PostPreviewMapper.toDto(post));
         }
@@ -56,11 +55,35 @@ public class NewsService
         return feed;
     }
 
-    public List<PostMetaDto> getAllPostsMeta()
+    public List<PostMetaDto> getPublishedPostsMeta()
     {
         List<PostMetaDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findAll())
+        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublished())
+        {
+            feed.add(PostMetaInfoMapper.toDto(post));
+        }
+
+        return feed;
+    }
+
+    public List<PostDto> getDrafts()
+    {
+        List<PostDto> feed = new ArrayList<>();
+
+        for(Post post : this.posts.findByPublishedIsNullOrderByCreated())
+        {
+            feed.add(PostMapper.toDto(post));
+        }
+
+        return feed;
+    }
+
+    public List<PostMetaDto> getDraftsMeta()
+    {
+        List<PostMetaDto> feed = new ArrayList<>();
+
+        for(Post post : this.posts.findByPublishedIsNullOrderByCreated())
         {
             feed.add(PostMetaInfoMapper.toDto(post));
         }
@@ -104,6 +127,30 @@ public class NewsService
                 .setPreview(dto.getPreview())
                 .setContent(dto.getContent())
                 .setModified(LocalDateTime.now());
+
+        return PostMapper.toDto(this.posts.save(post));
+    }
+
+    public PostDto publishPost(long id, String usernamePerformingUpdate)
+    {
+        User user = this.users.findByUsername(usernamePerformingUpdate)
+                .orElseThrow(() -> new UserNotFoundException(usernamePerformingUpdate));
+
+        Post post = this.posts.findById(id)
+                .orElseThrow(() -> new PostNotFoundException(id));
+
+        // Only admins can modify posts of other users
+        if(!post.getAuthor().equals(user) && !user.getRoles().contains("ADMIN"))
+        {
+            throw new PostSaveException(PostSaveException.Reason.NO_RIGHTS);
+        }
+
+        if(post.getPublished() != null)
+        {
+            return PostMapper.toDto(post);
+        }
+
+        post.setPublished(LocalDateTime.now());
 
         return PostMapper.toDto(this.posts.save(post));
     }

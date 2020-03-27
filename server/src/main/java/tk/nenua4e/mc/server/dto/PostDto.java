@@ -45,5 +45,8 @@ public class PostDto
     private LocalDateTime modified;
 
     @Getter(onMethod_ = { @TsOptional })
+    private LocalDateTime published;
+
+    @Getter(onMethod_ = { @TsOptional })
     private String authorUsername;
 }

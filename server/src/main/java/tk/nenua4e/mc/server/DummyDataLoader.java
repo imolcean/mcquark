@@ -39,9 +39,11 @@ public class DummyDataLoader implements ApplicationRunner
         this.users.save(quarkian);
         this.users.save(shushumiga);
 
-        this.posts.save(new Post("First post", "Lorem...", "Lorem ipsum...", LocalDateTime.now(), gory26));
-        this.posts.save(new Post("Second post", "Lorem...", "Lorem ipsum...", LocalDateTime.now(), quarkian));
-        this.posts.save(new Post("Third post", "Lorem...", "Lorem ipsum...", LocalDateTime.now(), shushumiga));
+        this.posts.save(new Post("First post", "Lorem...", "Lorem ipsum...",LocalDateTime.now(), gory26));
+        this.posts.save(new Post("Second post", "Lorem...", "Lorem ipsum...",
+                LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), quarkian));
+        this.posts.save(new Post("Third post", "Lorem...", "Lorem ipsum...",
+                LocalDateTime.now(), LocalDateTime.now(), LocalDateTime.now(), shushumiga));
         this.posts.save(new Post("Fourth post", "Lorem...", "Lorem ipsum...", LocalDateTime.now(), shushumiga));
     }
 }

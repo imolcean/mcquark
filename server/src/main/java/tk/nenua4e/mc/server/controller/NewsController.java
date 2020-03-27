@@ -30,19 +30,31 @@ public class NewsController
     @GetMapping("/feed")
     public List<PostDto> getFeed()
     {
-        return this.news.getAllPosts();
+        return this.news.getPublishedPosts();
     }
 
     @GetMapping("/feed/preview")
     public List<PostDto> getFeedPreview()
     {
-        return this.news.getAllPostsPreview();
+        return this.news.getPublishedPostsPreview();
     }
 
     @GetMapping("/feed/meta")
     public List<PostMetaDto> getFeedMeta()
     {
-        return this.news.getAllPostsMeta();
+        return this.news.getPublishedPostsMeta();
+    }
+
+    @GetMapping("/drafts")
+    public List<PostDto> getDrafts()
+    {
+        return this.news.getDrafts();
+    }
+
+    @GetMapping("/drafts/meta")
+    public List<PostMetaDto> getDraftsMeta()
+    {
+        return this.news.getDraftsMeta();
     }
 
     @GetMapping("/post/{id}")
@@ -74,6 +86,13 @@ public class NewsController
                               @RequestBody @Validated(PostDto.UpdateValidationGroup.class) PostDto dto)
     {
         return this.news.updatePost(dto.setId(id), principal.getName());
+    }
+
+    @PutMapping("/post/{id}/publish")
+    @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
+    public PostDto publishPost(Principal principal, @PathVariable("id") long id)
+    {
+        return this.news.publishPost(id, principal.getName());
     }
 
     @DeleteMapping("/post/{id}")

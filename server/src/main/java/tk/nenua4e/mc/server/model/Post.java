@@ -28,6 +28,8 @@ public class Post
 
     private LocalDateTime modified;
 
+    private LocalDateTime published;
+
     @ManyToOne
     @JoinColumn
     private User author;
@@ -36,16 +38,23 @@ public class Post
 
     public Post(String title, String preview, String content, LocalDateTime created, User author)
     {
-        this(title, preview, content, created, created, author);
+        this(title, preview, content, created, created, null, author);
     }
 
-    public Post(String title, String preview, String content, LocalDateTime created, LocalDateTime modified, User author)
+    public Post(String title,
+                String preview,
+                String content,
+                LocalDateTime created,
+                LocalDateTime modified,
+                LocalDateTime published,
+                User author)
     {
         this.title = title;
         this.preview = preview;
         this.content = content;
         this.created = created;
         this.modified = modified;
+        this.published = published;
         this.author = author;
     }
 
