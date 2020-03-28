@@ -14,12 +14,20 @@ export class PostsService {
     return this.http.get<PostDto[]>('api/v1/feed');
   }
 
+  public loadDrafts(): Observable<PostDto[]> {
+    return this.http.get<PostDto[]>('api/v1/drafts');
+  }
+
   public loadPostsPreview(): Observable<PostDto[]> {
     return this.http.get<PostDto[]>('api/v1/feed/preview');
   }
 
   public loadPostsMeta(): Observable<PostMetaDto[]> {
     return this.http.get<PostMetaDto[]>('api/v1/feed/meta');
+  }
+
+  public loadDraftsMeta(): Observable<PostMetaDto[]> {
+    return this.http.get<PostMetaDto[]>('api/v1/drafts/meta');
   }
 
   public loadPost(id: number): Observable<PostDto> {
@@ -32,6 +40,10 @@ export class PostsService {
 
   public updatePost(post: PostDto): Observable<PostDto> {
     return this.http.put<PostDto>('api/v1/post/' + post.id, post);
+  }
+
+  public publishPost(id: number): Observable<PostDto> {
+    return this.http.put<PostDto>('api/v1/post/' + id + '/publish', undefined);
   }
 
   public deletePost(id: number): Observable<void> {

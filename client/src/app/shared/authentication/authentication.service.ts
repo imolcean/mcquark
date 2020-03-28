@@ -12,23 +12,9 @@ export class AuthenticationService {
 
   private _user: UserDto | undefined;
 
-  // private userSubject$: BehaviorSubject<UserDto | undefined>;
-  // public user$: Observable<UserDto | undefined>;
-  //
-  // private lastAuthFailedSubject$: BehaviorSubject<boolean>;
-  // public lastAuthFailed$: Observable<boolean>;
-
-  constructor(private http: HttpClient) {
-    // this.userSubject$ = new BehaviorSubject<UserDto | undefined>(undefined);
-    // this.user$ = this.userSubject$.asObservable();
-    //
-    // this.lastAuthFailedSubject$ = new BehaviorSubject<boolean>(false);
-    // this.lastAuthFailed$ = this.lastAuthFailedSubject$.asObservable();
-  }
+  constructor(private http: HttpClient) {}
 
   public get currentUser(): UserDto | undefined {
-    // return this.userSubject$.value;
-
     return this._user;
   }
 
@@ -52,34 +38,10 @@ export class AuthenticationService {
     );
   }
 
-  // public authenticate(credentials: Credentials): void {
-  //   let headers: HttpHeaders | undefined;
-  //
-  //   headers = new HttpHeaders({
-  //     authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
-  //   });
-  //
-  //   this.http.post<UserDto>('api/v1/auth/user', null, { headers: headers })
-  //     .subscribe(user => {
-  //       this.userSubject$.next(user);
-  //       this.lastAuthFailedSubject$.next(false);
-  //     }, _error => {
-  //       if (credentials) {
-  //         this.lastAuthFailedSubject$.next(true);
-  //       }
-  //     });
-  // }
-
   public logout(): Observable<UserDto | undefined> {
     return this.http.post<void>('api/v1/auth/logout', null, {observe: "response"}).pipe(
       tap(response => this._user = response.ok ? undefined : this._user),
       map(_response => this._user)
     );
-
-
-      // .subscribe(_response => {
-      //   this._user = undefined;
-      //   this.router.navigateByUrl('/');
-      // });
   }
 }

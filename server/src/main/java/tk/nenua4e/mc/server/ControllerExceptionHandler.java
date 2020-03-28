@@ -32,6 +32,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler
         return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(403), request);
     }
 
+    @ExceptionHandler({PostAlreadyPublishedException.class})
+    public final ResponseEntity<Object> handlePostAlreadyPublished(Exception ex, WebRequest request)
+    {
+        return this.handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.valueOf(409), request);
+    }
+
     @ExceptionHandler({InsufficientRightsException.class})
     public final ResponseEntity<Object> handleInsufficientRights(Exception ex, WebRequest request)
     {

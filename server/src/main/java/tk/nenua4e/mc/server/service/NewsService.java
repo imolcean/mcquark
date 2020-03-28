@@ -6,6 +6,7 @@ import tk.nenua4e.mc.server.dto.PostMetaDto;
 import tk.nenua4e.mc.server.dto.mapper.PostMapper;
 import tk.nenua4e.mc.server.dto.mapper.PostMetaInfoMapper;
 import tk.nenua4e.mc.server.dto.mapper.PostPreviewMapper;
+import tk.nenua4e.mc.server.exception.PostAlreadyPublishedException;
 import tk.nenua4e.mc.server.exception.PostNotFoundException;
 import tk.nenua4e.mc.server.exception.PostSaveException;
 import tk.nenua4e.mc.server.exception.UserNotFoundException;
@@ -147,7 +148,7 @@ public class NewsService
 
         if(post.getPublished() != null)
         {
-            return PostMapper.toDto(post);
+            throw new PostAlreadyPublishedException(id);
         }
 
         post.setPublished(LocalDateTime.now());

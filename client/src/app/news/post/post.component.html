@@ -1,7 +1,11 @@
 <ng-container *ngIf="post; else loading">
   <header>
     <h1>{{ post.title }}</h1>
-    <h5>{{ post.created | date: "d/M/yy, H:mm" }}</h5>
+
+    <h3 class="warning" *ngIf="!post.published">DRAFT</h3>
+
+    <h5 *ngIf="post.published">{{ post.published | date: "d/M/yy, H:mm" }}</h5>
+    <h5 *ngIf="!post.published">{{ post.created | date: "d/M/yy, H:mm" }}</h5>
   </header>
 
   <section class="post-preview" [innerHTML]="preview"></section>
@@ -9,7 +13,10 @@
   <main class="post-content" [innerHTML]="content"></main>
 
   <footer>
-    Published by {{ post.authorUsername }}
+    <span *ngIf="post.published">Published</span>
+    <span *ngIf="!post.published">Drafted</span>
+
+    by {{ post.authorUsername }}
   </footer>
 </ng-container>
 

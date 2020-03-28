@@ -1,5 +1,5 @@
 <p-tabView>
-  <p-tabPanel header="Posts">
+  <p-tabPanel header="Drafts">
     <p-toolbar>
       <div class="ui-toolbar-group-left">
         <button pButton
@@ -11,6 +11,42 @@
       </div>
     </p-toolbar>
 
+    <p-table [value]="drafts$ | async"
+             [paginator]="true"
+             [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50, 100]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3em;">ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Created</th>
+          <th>Modified</th>
+          <th style="width: 10em;"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-post>
+        <tr>
+          <td>{{ post.id }}</td>
+          <td><a [routerLink]="['/news', post.id]">{{ post.title }}</a></td>
+          <td>{{ post.authorUsername }}</td>
+          <td>{{ post.created | date: "d/M/yy, H:mm:ss" }}</td>
+          <td>{{ post.modified | date: "d/M/yy, H:mm:ss" }}</td>
+          <td>
+            <a [routerLink]="['/internal/editor', post.id]">
+              <p-button icon="pi pi-pencil" styleClass="ui-button-info"></p-button>
+            </a>
+
+            <p-button icon="pi pi-check-circle" styleClass="ui-button-info" (onClick)="onPostPublish(post)"></p-button>
+
+            <p-button icon="pi pi-times" styleClass="ui-button-danger" (onClick)="onPostDelete(post)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel>
+
+  <p-tabPanel header="Published">
     <p-table [value]="posts$ | async"
              [paginator]="true"
              [rows]="10"
@@ -28,7 +64,7 @@
       <ng-template pTemplate="body" let-post>
         <tr>
           <td>{{ post.id }}</td>
-          <td>{{ post.title }}</td>
+          <td><a [routerLink]="['/news', post.id]">{{ post.title }}</a></td>
           <td>{{ post.authorUsername }}</td>
           <td>{{ post.created | date: "d/M/yy, H:mm:ss" }}</td>
           <td>{{ post.modified | date: "d/M/yy, H:mm:ss" }}</td>
@@ -55,7 +91,7 @@
           <th>Username</th>
           <th>Email</th>
           <th>Roles</th>
-          <th style="width: 8em;"></th>
+          <th style="width: 4em;"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-user>

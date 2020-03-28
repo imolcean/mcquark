@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {PostDto} from "../../dto/dto";
+import {PostDto, UserDto} from "../../dto/dto";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {PostsService} from "../../services/posts.service";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {flatMap} from "rxjs/operators";
 import {of} from "rxjs";
+import {AuthenticationService} from "../../shared/authentication/authentication.service";
 
 @Component({
   selector: 'app-post',
@@ -21,6 +22,7 @@ export class PostComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private sanitizer: DomSanitizer,
+              private authService: AuthenticationService,
               private postsService: PostsService) {
     this.preview = {};
     this.content = {};
@@ -40,17 +42,33 @@ export class PostComponent implements OnInit {
         })
       )
       .subscribe(
-        post => {
+        (post: PostDto | undefined) => {
           if (!post) {
             this.router.navigateByUrl("/");
             return;
           }
 
-          this.post = post;
-          this.preview = this.sanitizer.bypassSecurityTrustHtml(this.post.preview);
-          this.content = this.sanitizer.bypassSecurityTrustHtml(this.post.content ? this.post.content : '');
+          if (post.published) {
+            this.renderPost(post);
+            return;
+          }
+
+          const user: UserDto | undefined = this.authService.currentUser;
+
+          if (!user || (user.username !== post.authorUsername && !user.roles.map(role => role.toUpperCase()).includes("ADMIN"))) {
+            this.router.navigateByUrl("/");
+            return;
+          }
+
+          this.renderPost(post);
         },
         () => this.router.navigateByUrl("/"));
+  }
+
+  private renderPost(post: PostDto): void {
+    this.post = post;
+    this.preview = this.sanitizer.bypassSecurityTrustHtml(this.post.preview);
+    this.content = this.sanitizer.bypassSecurityTrustHtml(this.post.content ? this.post.content : '');
   }
 
 }
