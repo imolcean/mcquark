@@ -1,7 +1,9 @@
 <section>
   <header>
     <h2><a [routerLink]="['/news', post.id]">{{ post.title }}</a></h2>
-    <h5>{{ post.created | date: "d/M/yy, H:mm" }}</h5>
+
+    <h5 *ngIf="post.published">{{ post.published | date: "d/M/yy, H:mm" }}</h5>
+    <h5 *ngIf="!post.published">{{ post.created | date: "d/M/yy, H:mm" }}</h5>
   </header>
 
   <main class="card-main-content" [innerHTML]="content"></main>

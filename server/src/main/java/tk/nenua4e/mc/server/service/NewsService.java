@@ -36,7 +36,7 @@ public class NewsService
     {
         List<PostDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublished())
+        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublishedDesc())
         {
             feed.add(PostMapper.toDto(post));
         }
@@ -48,7 +48,7 @@ public class NewsService
     {
         List<PostDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublished())
+        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublishedDesc())
         {
             feed.add(PostPreviewMapper.toDto(post));
         }
@@ -60,7 +60,7 @@ public class NewsService
     {
         List<PostMetaDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublished())
+        for(Post post : this.posts.findByPublishedIsNotNullOrderByPublishedDesc())
         {
             feed.add(PostMetaInfoMapper.toDto(post));
         }
@@ -72,7 +72,7 @@ public class NewsService
     {
         List<PostDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findByPublishedIsNullOrderByCreated())
+        for(Post post : this.posts.findByPublishedIsNullOrderByCreatedDesc())
         {
             feed.add(PostMapper.toDto(post));
         }
@@ -84,7 +84,7 @@ public class NewsService
     {
         List<PostMetaDto> feed = new ArrayList<>();
 
-        for(Post post : this.posts.findByPublishedIsNullOrderByCreated())
+        for(Post post : this.posts.findByPublishedIsNullOrderByCreatedDesc())
         {
             feed.add(PostMetaInfoMapper.toDto(post));
         }
