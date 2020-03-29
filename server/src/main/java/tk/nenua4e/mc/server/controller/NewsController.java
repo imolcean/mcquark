@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tk.nenua4e.mc.server.dto.PostDto;
 import tk.nenua4e.mc.server.dto.PostMetaDto;
 import tk.nenua4e.mc.server.service.NewsService;
+import tk.nenua4e.mc.server.service.TelegramService;
 
 import java.net.URI;
 import java.security.Principal;
@@ -22,9 +23,12 @@ public class NewsController
 {
     private NewsService news;
 
-    public NewsController(NewsService news)
+    private TelegramService telegram;
+
+    public NewsController(NewsService news, TelegramService telegram)
     {
         this.news = news;
+        this.telegram = telegram;
     }
 
     @GetMapping("/feed")
@@ -92,7 +96,11 @@ public class NewsController
     @Secured({ "ROLE_EDITOR", "ROLE_ADMIN" })
     public PostDto publishPost(Principal principal, @PathVariable("id") long id)
     {
-        return this.news.publishPost(id, principal.getName());
+        PostDto dto = this.news.publishPost(id, principal.getName());
+
+        this.telegram.publish(dto.getTitle());
+
+        return dto;
     }
 
     @DeleteMapping("/post/{id}")
