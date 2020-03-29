@@ -1,9 +1,8 @@
 package tk.nenua4e.mc.server.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import tk.nenua4e.mc.server.dto.PostDto;
 
 @Service
+@Slf4j
 public class TelegramService extends TelegramLongPollingBot
 {
     final String USERNAME;
@@ -33,6 +33,8 @@ public class TelegramService extends TelegramLongPollingBot
         this.TOKEN = token;
         this.CHANNEL_ID = channel_id;
         this.FRONTEND_HOST = frontend_host;
+
+        log.info("Telegram token: " + this.TOKEN);
     }
 
     public void publish(PostDto post)

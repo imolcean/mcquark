@@ -58,6 +58,12 @@ Afterwards, you start the service
 
 2.
 
+Set environment variables:
+
+- TELEGRAM_BOT_TOKEN
+
+3.
+
 Enable reverse-proxy with Nginx. Create a file `/etc/nginx/sites-available/zigas.cf` with the following content:
 
 ```
@@ -84,7 +90,7 @@ Finally, restart Nginx
 
 `systemctl restart nginx`
 
-3.
+4.
 
 Configure the firewall.
 
