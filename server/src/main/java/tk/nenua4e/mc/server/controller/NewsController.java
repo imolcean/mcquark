@@ -98,7 +98,7 @@ public class NewsController
     {
         PostDto dto = this.news.publishPost(id, principal.getName());
 
-        this.telegram.publish(dto.getTitle());
+        this.telegram.publish(dto);
 
         return dto;
     }
