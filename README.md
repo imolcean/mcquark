@@ -2,34 +2,25 @@
 
 ## Build & Deploy
 
-0.
-[Optional]
+0. [Optional]
 
 If you add or change a DTO class, you need to regenerate the TypeScript definitions (`client/src/app/dto/dto.ts`).
 
 `mvn clean compile typescript-generator:generate`
 
-1.
-
-Build project into a JAR. Client code will be built and added as static resources.
+1. Build project into a JAR. Client code will be built and added as static resources.
 
 `mvn clean package`
 
-2.
-
-Upload the JAR (`server/target/server.jar`) onto the server and place it in `/var/www/zigas.cf/public`.
+2. Upload the JAR (`server/target/server.jar`) onto the server and place it in `/var/www/zigas.cf/public`.
 
 ## Install
 
 These actions are required to make the application available from the Internet.
 
-0.
+0. Install Java and Nginx
 
-Install Java and Nginx
-
-1.
-
-Make the application to a systemd service. Create a file `/var/www/zigas.cf/zigas.cf.service` and fill it with the following content:
+1. Make the application to a systemd service. Create a file `/var/www/zigas.cf/zigas.cf.service` and fill it with the following content:
 
 ```
 [Unit]
@@ -56,15 +47,11 @@ Afterwards, you start the service
 
 `systemctl start zigas.cf`
 
-2.
-
-Set environment variables:
+2. Set environment variables:
 
 - TELEGRAM_BOT_TOKEN
 
-3.
-
-Enable reverse-proxy with Nginx. Create a file `/etc/nginx/sites-available/zigas.cf` with the following content:
+3. Enable reverse-proxy with Nginx. Create a file `/etc/nginx/sites-available/zigas.cf` with the following content:
 
 ```
 server {
@@ -90,9 +77,7 @@ Finally, restart Nginx
 
 `systemctl restart nginx`
 
-4.
-
-Configure the firewall.
+4. Configure the firewall.
 
 ```bash
 ufw default deny incoming
