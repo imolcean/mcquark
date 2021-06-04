@@ -32,7 +32,7 @@
         <typescript-generator.version>2.20.583</typescript-generator.version>
         <swagger.version>2.9.2</swagger.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
-        <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <maven-exec.version>1.6.0</maven-exec.version>
     </properties>
 
